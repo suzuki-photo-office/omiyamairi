@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>お宮参りフォトご予約</title>
+    <!-- LINE LIFF SDK -->
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -32,7 +33,7 @@
         .optional-badge { background-color: #8c8c8c; color: white; font-size: 10px; padding: 2px 6px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
         
         .explain-text { font-size: 13px; color: #555; background: #fdfaf6; padding: 10px 12px; border-radius: 6px; border-left: 3px solid #a89f91; margin-bottom: 12px; line-height: 1.5; }
-        .link-area { margin-top: 12px; font-size: 14px; font-weight: 600; line-height: 1.8; }
+        .link-area { margin-top: 8px; font-size: 14px; font-weight: 600; line-height: 1.8; }
         .link-area a { color: #7aa692; text-decoration: underline; display: block; margin-bottom: 4px; }
         
         input[type="text"], input[type="tel"], input[type="date"], input[type="time"], input[type="number"], textarea { 
@@ -71,6 +72,7 @@
         </div>
         
         <div class="form-content">
+            <!-- 個人情報 -->
             <div class="form-group" id="group_name">
                 <label for="name">お名前<span class="required-badge">必須</span></label>
                 <input type="text" id="name" placeholder="例：鈴木 花子">
@@ -83,6 +85,7 @@
                 <div class="error-message">お電話番号を入力してください。</div>
             </div>
 
+            <!-- ご住所カード -->
             <div class="form-group" id="group_address">
                 <label>ご住所<span class="required-badge">必須</span></label>
                 <span class="sub-label" style="margin-top: 0;">郵便番号</span>
@@ -92,6 +95,7 @@
                 <div class="error-message">住所を入力してください。</div>
             </div>
 
+            <!-- お子様情報 -->
             <div class="form-group" id="group_babyName">
                 <label for="babyName">祈祷されるお子様のお名前<span class="required-badge">必須</span></label>
                 <input type="text" id="babyName" placeholder="例：ひなた">
@@ -125,9 +129,10 @@
 
             <div class="form-group">
                 <label for="attendees">撮影に参加される方の人数と続柄<span class="optional-badge">任意</span></label>
-                <textarea id="attendees" placeholder="例：大人4人（夫婦、両家祖母）、子供1人（本人）"></textarea>
+                <textarea id="attendees" placeholder="例：大人4人（夫婦）、子供1人（上の子）"></textarea>
             </div>
 
+            <!-- 神社・祈祷時間 -->
             <div class="form-group">
                 <label for="shrine">同行撮影の方はお参りされる神社名<span class="optional-badge">任意</span></label>
                 <input type="text" id="shrine" placeholder="例：○○神社">
@@ -148,48 +153,57 @@
                 </div>
             </div>
 
+            <!-- 撮影希望日①（「ご祈祷の時間に合わせたい」を追加） -->
             <div class="form-group" id="group_date1">
                 <label for="date1">撮影希望日①<span class="required-badge">必須</span></label>
                 <input type="date" id="date1">
                 <div class="time-selector-group">
                     <label class="time-label"><input type="radio" name="time1" value="午前枠10:30"> 午前枠10:30</label>
                     <label class="time-label"><input type="radio" name="time1" value="午後枠13:30"> 午後枠13:30</label>
+                    <label class="time-label"><input type="radio" name="time1" value="ご祈祷の時間に合わせたい"> ご祈祷の時間に合わせたい</label>
                     <label class="time-label"><input type="radio" name="time1" value="相談したい"> 相談したい</label>
                 </div>
                 <div class="error-message">撮影希望日①の日付と時間帯の両方を選択してください。</div>
             </div>
 
+            <!-- 撮影希望日② -->
             <div class="form-group" id="group_date2">
                 <label for="date2">撮影希望日②<span class="required-badge">必須</span></label>
                 <input type="date" id="date2">
                 <div class="time-selector-group">
                     <label class="time-label"><input type="radio" name="time2" value="午前枠10:30"> 午前枠10:30</label>
                     <label class="time-label"><input type="radio" name="time2" value="午後枠13:30"> 午後枠13:30</label>
+                    <label class="time-label"><input type="radio" name="time2" value="ご祈祷の時間に合わせたい"> ご祈祷の時間に合わせたい</label>
                     <label class="time-label"><input type="radio" name="time2" value="相談したい"> 相談したい</label>
                 </div>
                 <div class="error-message">撮影希望日②の日付と時間帯の両方を選択してください。</div>
             </div>
 
+            <!-- 撮影希望日③ -->
             <div class="form-group">
                 <label for="date3">撮影希望日③<span class="optional-badge">任意</span></label>
                 <input type="date" id="date3">
                 <div class="time-selector-group">
                     <label class="time-label"><input type="radio" name="time3" value="午前枠10:30"> 午前枠10:30</label>
                     <label class="time-label"><input type="radio" name="time3" value="午後枠13:30"> 午後枠13:30</label>
+                    <label class="time-label"><input type="radio" name="time3" value="ご祈祷の時間に合わせたい"> ご祈祷の時間に合わせたい</label>
                     <label class="time-label"><input type="radio" name="time3" value="相談したい"> 相談したい</label>
                 </div>
             </div>
 
+            <!-- 希望プラン（「相談したい」を追加） -->
             <div class="form-group" id="group_plan">
                 <label class="required">希望プラン<span class="required-badge">必須</span></label>
                 <div class="choice-group">
                     <label class="choice-label"><input type="radio" name="plan" value="お参り同行プラン ¥51,700"> お参り同行プラン ¥51,700</label>
                     <label class="choice-label"><input type="radio" name="plan" value="スタジオプラン ¥40,700"> スタジオプラン ¥40,700</label>
                     <label class="choice-label"><input type="radio" name="plan" value="お参り同行＋スタジオ2シーンプラン ¥73,700"> お参り同行＋スタジオ2シーンプラン ¥73,700</label>
+                    <label class="choice-label"><input type="radio" name="plan" value="相談したい"> 相談したい</label>
                 </div>
                 <div class="error-message">希望プランを選択してください。</div>
             </div>
 
+            <!-- スタジオ撮影オプション -->
             <div class="form-group">
                 <label>スタジオ撮影オプション<span class="optional-badge">任意</span></label>
                 <div class="choice-group">
@@ -199,25 +213,40 @@
                 </div>
             </div>
 
+            <!-- 有料衣装レンタル(選択肢変更＋解説追加) -->
             <div class="form-group" id="group_rental">
                 <label>有料衣装レンタル<span class="required-badge">必須</span></label>
                 
                 <span class="sub-label" style="margin-top: 0;">産着</span>
                 <div class="choice-group" style="margin-bottom: 16px;">
-                    <label class="choice-label"><input type="radio" name="babyRental" value="産着：あり"> あり</label>
-                    <label class="choice-label"><input type="radio" name="babyRental" value="産着：なし"> なし</label>
+                    <label class="choice-label"><input type="radio" name="babyRental" value="産着：レンタルあり"> レンタルあり</label>
+                    <label class="choice-label"><input type="radio" name="babyRental" value="産着：ご自前"> ご自前</label>
                     <label class="choice-label"><input type="radio" name="babyRental" value="産着：検討中"> 検討中</label>
                 </div>
 
                 <span class="sub-label">ママ着物</span>
-                <div class="choice-group">
-                    <label class="choice-label"><input type="radio" name="momRental" value="ママ着物：あり"> あり</label>
-                    <label class="choice-label"><input type="radio" name="momRental" value="ママ着物：なし"> なし</label>
+                <div class="choice-group" style="margin-bottom: 16px;">
+                    <label class="choice-label"><input type="radio" name="momRental" value="ママ着物：レンタルあり"> レンタルあり</label>
+                    <label class="choice-label"><input type="radio" name="momRental" value="ママ着物：ご自前"> ご自前</label>
                     <label class="choice-label"><input type="radio" name="momRental" value="ママ着物：検討中"> 検討中</label>
                 </div>
                 <div class="error-message">有料衣装レンタル（産着・ママ着物）の希望を両方選択してください。</div>
+
+                <!-- 各種レンタルショップの説明書きを追加 -->
+                <div class="explain-text" style="margin-top: 16px; margin-bottom: 0; background: #fcfcfc; border-left-color: #7aa692;">
+                    <p style="font-weight: 700; margin-bottom: 2px; color: #222;">●キモノカタログ</p>
+                    オンラインレンタルサービス。試着不可。<br>
+                    【ID】1234【PW】001でログインしてカタログをご覧いただけます。
+                    <div class="link-area" style="margin-top: 4px; margin-bottom: 12px;">
+                        <a href="https://suzu-photo.com/wp-content/uploads/2025/04/%E4%B8%83%E4%BA%94%E4%B8%89%E3%83%BB%E7%94%A3%E7%9D%80%E3%83%BB%E8%A8%AA%E5%95%8F%E7%9D%80_%E6%96%99%E9%87%91%E8%A1%A8-scaled.jpg" target="_blank">＞＞＞料金表＜＜＜</a>
+                    </div>
+                    <p style="font-weight: 700; margin-bottom: 2px; color: #222;">●レンタル着物『いと』</p>
+                    実店舗有(試着可)。直通電話 080-3789-6903<br>
+                    <span style="font-size: 11px; color: #666;">（※料金はいとさんへ直接お問い合わせください）</span>
+                </div>
             </div>
 
+            <!-- 大人のお支度のご希望(バッジ削除・案内文調整) -->
             <div class="form-group" id="group_dressing">
                 <label>大人のお支度のご希望<span class="required-badge">必須</span></label>
                 <div class="explain-text">
@@ -230,11 +259,10 @@
                 </div>
                 <div class="error-message">大人のお支度のご希望を選択してください。</div>
                 
-                <div class="explain-text" style="margin-top: 16px; margin-bottom: 4px; background: #fdfdfd; border-left-color: #7aa692;">
+                <div class="explain-text" style="margin-top: 16px; margin-bottom: 4px; background: #fdfdfd; border-left-color: #a89f91;">
                     衣装、お支度の料金表は以下リンクをご確認ください。大変恐縮ですが、交通費以外のお見積りにつきましては料金表をご参照くださいますようお願い申し上げます。
                     <div class="link-area">
                         <a href="https://suzu-photo.com/wp-content/uploads/2026/04/%E6%96%99%E9%87%91%E8%A1%A82026-scaled.jpg" target="_blank">＞＞お支度料金表＜＜</a>
-                        <a href="https://suzu-photo.com/wp-content/uploads/2025/04/%E4%B8%83%E4%BA%94%E4%B8%89%E3%83%BB%E7%94%A3%E7%9D%80%E3%83%BB%E8%A8%AA%E5%95%8F%E7%9D%80_%E6%96%99%E9%87%91%E8%A1%A8-scaled.jpg" target="_blank">＞＞衣装レンタル料金表＜＜</a>
                     </div>
                 </div>
             </div>
@@ -328,13 +356,13 @@
             const plan = planRadio ? planRadio.value : '';
             if (!plan) { document.getElementById('group_plan').classList.add('has-error'); hasError = true; }
 
-            // スタジオ撮影オプション（チェックボックス）
+            // スタジオ撮影オプション
             const studioOptionBoxes = document.querySelectorAll('input[name="studioOption"]:checked');
             const studioOptions = [];
             studioOptionBoxes.forEach((cb) => { studioOptions.push(cb.value); });
             const studioOptionText = studioOptions.length > 0 ? studioOptions.map(opt => `・${opt}`).join('\n') : 'なし';
 
-            // 有料衣装レンタル（2軸両方必須）
+            // 有料衣装レンタル
             const babyRentalRadio = document.querySelector('input[name="babyRental"]:checked');
             const babyRental = babyRentalRadio ? babyRentalRadio.value : '';
             const momRentalRadio = document.querySelector('input[name="momRental"]:checked');
