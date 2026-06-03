@@ -32,8 +32,8 @@
         .required-badge { background-color: #ff4d4f; color: white; font-size: 10px; padding: 2px 6px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
         .optional-badge { background-color: #8c8c8c; color: white; font-size: 10px; padding: 2px 6px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
         
-        /* 説明文の背景色をすべて白（#ffffff）に統一、枠線のニュアンスのみ残して上品に */
-        .explain-text { font-size: 13px; color: #555; background: #ffffff; padding: 10px 12px; border-radius: 6px; border-left: 3px solid #a89f91; margin-bottom: 12px; line-height: 1.5; }
+        /* 一般説明文の背景色をナチュラルなトーンに戻しました */
+        .explain-text { font-size: 13px; color: #555; background: #fdfaf6; padding: 10px 12px; border-radius: 6px; border-left: 3px solid #a89f91; margin-bottom: 12px; line-height: 1.5; }
         .link-area { margin-top: 8px; font-size: 14px; font-weight: 600; line-height: 1.8; }
         .link-area a { color: #7aa692; text-decoration: underline; display: block; margin-bottom: 4px; }
         
@@ -44,8 +44,9 @@
         .gallery-item { text-align: center; }
         .gallery-item img { width: 100%; height: auto; border-radius: 8px; border: 1px solid #eee; display: block; margin-bottom: 6px; }
         .gallery-item span { font-size: 12px; color: #666; font-weight: 500; }
-        /* 補足の背景色も白（#ffffff）に変更 */
-        .gallery-note { font-size: 12px; color: #666; line-height: 1.5; text-align: center; background: #ffffff; padding: 8px; border-radius: 6px; margin-top: 4px; border: 1px solid #eee; }
+        
+        /* 無料産着用の注記：背景白、囲み線なし、フォントを11pxにして一行に収まるように調整 */
+        .gallery-note { font-size: 11px; color: #666; text-align: center; background: #ffffff; padding: 6px 0 0 0; margin-top: 4px; border: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         
         input[type="text"], input[type="tel"], input[type="date"], input[type="time"], input[type="number"], textarea { 
             width: 100%; padding: 14px; border: 1px solid #d9d9d9; border-radius: 8px; font-size: 16px; background: #ffffff; color: #333; transition: all 0.2s; -webkit-appearance: none;
@@ -235,7 +236,7 @@
                             <span>女の子用</span>
                         </div>
                     </div>
-                    <!-- 背景色を白にしてすっきり統合 -->
+                    <!-- 背景色を白にし、囲み線をなくして、文字を1一行におさめました -->
                     <div class="gallery-note">
                         柄は一種類ずつになります。帽子と涎掛けもセットでついています。
                     </div>
@@ -261,8 +262,7 @@
                 </div>
                 <div class="error-message">有料衣装レンタル（産着・ママ着物）の希望を両方選択してください。</div>
 
-                <!-- 背景色を白に変更 -->
-                <div class="explain-text" style="margin-top: 16px; margin-bottom: 0; border-left-color: #7aa692;">
+                <div class="explain-text" style="margin-top: 16px; margin-bottom: 0; background: #fcfcfc; border-left-color: #7aa692;">
                     <p style="font-weight: 700; margin-bottom: 2px; color: #222;">●キモノカタログ</p>
                     オンラインレンタルサービス。試着不可。<br>
                     【ID】1234【PW】001でログインしてカタログをご覧いただけます。
@@ -278,7 +278,6 @@
             <!-- 大人のお支度のご希望(必須) -->
             <div class="form-group" id="group_dressing">
                 <label>大人のお支度のご希望<span class="required-badge">必須</span></label>
-                <!-- 背景色を白に変更 -->
                 <div class="explain-text">
                     ヘアメイクさんのスケジュール確認が必要になりますので、追って希望日の空き状況をお知らせ致します。
                 </div>
@@ -289,7 +288,6 @@
                 </div>
                 <div class="error-message">大人のお支度のご希望を選択してください。</div>
                 
-                <!-- 背景色を白に変更 -->
                 <div class="explain-text" style="margin-top: 16px; margin-bottom: 4px; border-left-color: #a89f91;">
                     衣装、お支度の料金表は以下リンクをご確認ください。大変恐縮ですが、交通費以外のお見積りにつきましては料金表をご参照くださいますようお願い申し上げます。
                     <div class="link-area">
