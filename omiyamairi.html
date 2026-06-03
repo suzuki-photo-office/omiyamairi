@@ -22,6 +22,9 @@
         /* 入力欄を囲むカード */
         .form-group { background: #ffffff; padding: 20px 16px; border-radius: 12px; margin-bottom: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #eaeaea; position: relative; }
         
+        /* グループごとの区切りをわかりやすくするための隙間調整 */
+        .group-separator { margin-bottom: 28px; }
+        
         /* エラー時のスタイル */
         .form-group.has-error { border-color: #ff4d4f; box-shadow: 0 0 0 1px #ff4d4f; }
         .error-message { color: #ff4d4f; font-size: 12px; font-weight: 600; margin-top: 8px; display: none; }
@@ -32,7 +35,6 @@
         .required-badge { background-color: #ff4d4f; color: white; font-size: 10px; padding: 2px 6px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
         .optional-badge { background-color: #8c8c8c; color: white; font-size: 10px; padding: 2px 6px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
         
-        /* 一般説明文の背景色をナチュラルなトーンに戻しました */
         .explain-text { font-size: 13px; color: #555; background: #fdfaf6; padding: 10px 12px; border-radius: 6px; border-left: 3px solid #a89f91; margin-bottom: 12px; line-height: 1.5; }
         .link-area { margin-top: 8px; font-size: 14px; font-weight: 600; line-height: 1.8; }
         .link-area a { color: #7aa692; text-decoration: underline; display: block; margin-bottom: 4px; }
@@ -45,7 +47,6 @@
         .gallery-item img { width: 100%; height: auto; border-radius: 8px; border: 1px solid #eee; display: block; margin-bottom: 6px; }
         .gallery-item span { font-size: 12px; color: #666; font-weight: 500; }
         
-        /* 無料産着用の注記：背景白、囲み線なし、フォントを11pxにして一行に収まるように調整 */
         .gallery-note { font-size: 11px; color: #666; text-align: center; background: #ffffff; padding: 6px 0 0 0; margin-top: 4px; border: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         
         input[type="text"], input[type="tel"], input[type="date"], input[type="time"], input[type="number"], textarea { 
@@ -64,7 +65,6 @@
         
         .time-input-wrap { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
         
-        /* 希望日カード内の時間帯選択用スタイル */
         .time-selector-group { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; padding-top: 12px; border-top: 1px dashed #eee; }
         .time-label { display: flex; align-items: center; font-size: 14px; font-weight: normal; cursor: pointer; color: #555; }
         .time-label input { width: 18px; height: 18px; margin-right: 8px; accent-color: #a89f91; }
@@ -84,7 +84,7 @@
         </div>
         
         <div class="form-content">
-            <!-- 個人情報 -->
+            <!-- 【グループ1】お客様基本情報 -->
             <div class="form-group" id="group_name">
                 <label for="name">お名前<span class="required-badge">必須</span></label>
                 <input type="text" id="name" placeholder="例：鈴木 花子">
@@ -97,8 +97,7 @@
                 <div class="error-message">お電話番号を入力してください。</div>
             </div>
 
-            <!-- ご住所カード -->
-            <div class="form-group" id="group_address">
+            <div class="form-group group-separator" id="group_address">
                 <label>ご住所<span class="required-badge">必須</span></label>
                 <span class="sub-label" style="margin-top: 0;">郵便番号</span>
                 <input type="number" id="zipcode" placeholder="例：1234567" style="margin-bottom: 12px;" inputmode="numeric">
@@ -107,7 +106,54 @@
                 <div class="error-message">住所を入力してください。</div>
             </div>
 
-            <!-- お子様情報 -->
+            <!-- 【グループ2】撮影希望日・プラン -->
+            <div class="form-group" id="group_date1">
+                <label for="date1">撮影希望日①<span class="required-badge">必須</span></label>
+                <input type="date" id="date1">
+                <div class="time-selector-group">
+                    <label class="time-label"><input type="radio" name="time1" value="午前枠10:30"> 午前枠10:30</label>
+                    <label class="time-label"><input type="radio" name="time1" value="午後枠13:30"> 午後枠13:30</label>
+                    <label class="time-label"><input type="radio" name="time1" value="ご祈祷の時間に合わせたい"> ご祈祷の時間に合わせたい</label>
+                    <label class="time-label"><input type="radio" name="time1" value="相談したい"> 相談したい</label>
+                </div>
+                <div class="error-message">撮影希望日①の日付と時間帯の両方を選択してください。</div>
+            </div>
+
+            <div class="form-group" id="group_date2">
+                <label for="date2">撮影希望日②<span class="required-badge">必須</span></label>
+                <input type="date" id="date2">
+                <div class="time-selector-group">
+                    <label class="time-label"><input type="radio" name="time2" value="午前枠10:30"> 午前枠10:30</label>
+                    <label class="time-label"><input type="radio" name="time2" value="午後枠13:30"> 午後枠13:30</label>
+                    <label class="time-label"><input type="radio" name="time2" value="ご祈祷の時間に合わせたい"> ご祈祷の時間に合わせたい</label>
+                    <label class="time-label"><input type="radio" name="time2" value="相談したい"> 相談したい</label>
+                </div>
+                <div class="error-message">撮影希望日②の日付と時間帯の両方を選択してください。</div>
+            </div>
+
+            <div class="form-group">
+                <label for="date3">撮影希望日③<span class="optional-badge">任意</span></label>
+                <input type="date" id="date3">
+                <div class="time-selector-group">
+                    <label class="time-label"><input type="radio" name="time3" value="午前枠10:30"> 午前枠10:30</label>
+                    <label class="time-label"><input type="radio" name="time3" value="午後枠13:30"> 午後枠13:30</label>
+                    <label class="time-label"><input type="radio" name="time3" value="ご祈祷の時間に合わせたい"> ご祈祷の時間に合わせたい</label>
+                    <label class="time-label"><input type="radio" name="time3" value="相談したい"> 相談したい</label>
+                </div>
+            </div>
+
+            <div class="form-group group-separator" id="group_plan">
+                <label class="required">希望プラン<span class="required-badge">必須</span></label>
+                <div class="choice-group">
+                    <label class="choice-label"><input type="radio" name="plan" value="お参り同行プラン ¥51,700"> お参り同行プラン ¥51,700</label>
+                    <label class="choice-label"><input type="radio" name="plan" value="スタジオプラン ¥40,700"> スタジオプラン ¥40,700</label>
+                    <label class="choice-label"><input type="radio" name="plan" value="お参り同行＋スタジオ2シーンプラン ¥73,700"> お参り同行＋スタジオ2シーンプラン ¥73,700</label>
+                    <label class="choice-label"><input type="radio" name="plan" value="相談したい"> 相談したい</label>
+                </div>
+                <div class="error-message">希望プランを選択してください。</div>
+            </div>
+
+            <!-- 【グループ3】お子様・付き添い情報 -->
             <div class="form-group" id="group_babyName">
                 <label for="babyName">祈祷されるお子様のお名前<span class="required-badge">必須</span></label>
                 <input type="text" id="babyName" placeholder="例：ひなた">
@@ -139,18 +185,18 @@
                 <textarea id="siblings" placeholder="例：兄：そうた（4歳）"></textarea>
             </div>
 
-            <div class="form-group">
+            <div class="form-group group-separator">
                 <label for="attendees">撮影に参加される方の人数と続柄<span class="optional-badge">任意</span></label>
                 <textarea id="attendees" placeholder="例：大人4人（夫婦）、子供1人（上の子）"></textarea>
             </div>
 
-            <!-- 神社・祈祷時間 -->
+            <!-- 【グループ4】神社・ご祈祷時間 -->
             <div class="form-group">
                 <label for="shrine">同行撮影の方はお参りされる神社名<span class="optional-badge">任意</span></label>
                 <input type="text" id="shrine" placeholder="例：○○神社">
             </div>
 
-            <div class="form-group">
+            <div class="form-group group-separator">
                 <label>ご祈祷の時間<span class="optional-badge">任意</span></label>
                 <div class="choice-group">
                     <label class="choice-label" style="margin-bottom: -4px;">
@@ -165,57 +211,7 @@
                 </div>
             </div>
 
-            <!-- 撮影希望日① -->
-            <div class="form-group" id="group_date1">
-                <label for="date1">撮影希望日①<span class="required-badge">必須</span></label>
-                <input type="date" id="date1">
-                <div class="time-selector-group">
-                    <label class="time-label"><input type="radio" name="time1" value="午前枠10:30"> 午前枠10:30</label>
-                    <label class="time-label"><input type="radio" name="time1" value="午後枠13:30"> 午後枠13:30</label>
-                    <label class="time-label"><input type="radio" name="time1" value="ご祈祷の時間に合わせたい"> ご祈祷の時間に合わせたい</label>
-                    <label class="time-label"><input type="radio" name="time1" value="相談したい"> 相談したい</label>
-                </div>
-                <div class="error-message">撮影希望日①の日付と時間帯の両方を選択してください。</div>
-            </div>
-
-            <!-- 撮影希望日② -->
-            <div class="form-group" id="group_date2">
-                <label for="date2">撮影希望日②<span class="required-badge">必須</span></label>
-                <input type="date" id="date2">
-                <div class="time-selector-group">
-                    <label class="time-label"><input type="radio" name="time2" value="午前枠10:30"> 午前枠10:30</label>
-                    <label class="time-label"><input type="radio" name="time2" value="午後枠13:30"> 午後枠13:30</label>
-                    <label class="time-label"><input type="radio" name="time2" value="ご祈祷の時間に合わせたい"> ご祈祷の時間に合わせたい</label>
-                    <label class="time-label"><input type="radio" name="time2" value="相談したい"> 相談したい</label>
-                </div>
-                <div class="error-message">撮影希望日②の日付と時間帯の両方を選択してください。</div>
-            </div>
-
-            <!-- 撮影希望日③ -->
-            <div class="form-group">
-                <label for="date3">撮影希望日③<span class="optional-badge">任意</span></label>
-                <input type="date" id="date3">
-                <div class="time-selector-group">
-                    <label class="time-label"><input type="radio" name="time3" value="午前枠10:30"> 午前枠10:30</label>
-                    <label class="time-label"><input type="radio" name="time3" value="午後枠13:30"> 午後枠13:30</label>
-                    <label class="time-label"><input type="radio" name="time3" value="ご祈祷の時間に合わせたい"> ご祈祷の時間に合わせたい</label>
-                    <label class="time-label"><input type="radio" name="time3" value="相談したい"> 相談したい</label>
-                </div>
-            </div>
-
-            <!-- 希望プラン -->
-            <div class="form-group" id="group_plan">
-                <label class="required">希望プラン<span class="required-badge">必須</span></label>
-                <div class="choice-group">
-                    <label class="choice-label"><input type="radio" name="plan" value="お参り同行プラン ¥51,700"> お参り同行プラン ¥51,700</label>
-                    <label class="choice-label"><input type="radio" name="plan" value="スタジオプラン ¥40,700"> スタジオプラン ¥40,700</label>
-                    <label class="choice-label"><input type="radio" name="plan" value="お参り同行＋スタジオ2シーンプラン ¥73,700"> お参り同行＋スタジオ2シーンプラン ¥73,700</label>
-                    <label class="choice-label"><input type="radio" name="plan" value="相談したい"> 相談したい</label>
-                </div>
-                <div class="error-message">希望プランを選択してください。</div>
-            </div>
-
-            <!-- スタジオ撮影オプション -->
+            <!-- 【グループ5】レンタル・衣装・お支度 -->
             <div class="form-group">
                 <label>スタジオ撮影オプション<span class="optional-badge">任意</span></label>
                 <div class="choice-group">
@@ -223,7 +219,6 @@
                     <label class="choice-label"><input type="checkbox" name="studioOption" value="無料産着レンタル"> 無料産着レンタル</label>
                 </div>
 
-                <!-- 画像ギャラリーエリア -->
                 <div class="image-gallery">
                     <p class="gallery-title">【無料レンタル産着】</p>
                     <div class="gallery-grid">
@@ -236,14 +231,12 @@
                             <span>女の子用</span>
                         </div>
                     </div>
-                    <!-- 背景色を白にし、囲み線をなくして、文字を1一行におさめました -->
                     <div class="gallery-note">
                         柄は一種類ずつになります。帽子と涎掛けもセットでついています。
                     </div>
                 </div>
             </div>
 
-            <!-- 有料衣装レンタル -->
             <div class="form-group" id="group_rental">
                 <label>有料衣装レンタル<span class="required-badge">必須</span></label>
                 
@@ -275,7 +268,6 @@
                 </div>
             </div>
 
-            <!-- 大人のお支度のご希望(必須) -->
             <div class="form-group" id="group_dressing">
                 <label>大人のお支度のご希望<span class="required-badge">必須</span></label>
                 <div class="explain-text">
@@ -405,11 +397,18 @@
             const dateTimeText2 = `${date2} (${time2})`;
             const dateTimeText3 = date3 ? `${date3} (${time3})` : 'なし';
 
+            // ご指定いただいたまとまり通りの並び順 ＆ 見やすい空行を追加
             const messageText = `【予約申込】お宮参り
 ■お名前：${name}
 ■お電話番号：${phone}
 ■郵便番号：${zipcode}
 ■ご住所：${address}
+
+■撮影希望日①：${dateTimeText1}
+■撮影希望日②：${dateTimeText2}
+■撮影希望日③：${dateTimeText3}
+■希望プラン：${plan}
+
 ■祈祷されるお子様名：${babyName}
 ■お子様のお誕生日：${birthDate}
 ■お子様の性別：${babyGender}
@@ -419,18 +418,18 @@ ${twins}
 ${siblings}
 ■撮影に参加される方の人数と続柄：
 ${attendees}
+
 ■お参りされる神社名：${shrine}
 ■ご祈祷の時間：${prayTimeText}
-■撮影希望日①：${dateTimeText1}
-■撮影希望日②：${dateTimeText2}
-■撮影希望日③：${dateTimeText3}
-■希望プラン：${plan}
+
 ■スタジオ撮影オプション：
 ${studioOptionText}
 ■有料衣装レンタル：
 ・${babyRental}
 ・${momRental}
-■大人のお支度のご希望：${dressing}`;
+■大人のお支度のご希望：${dressing}
+
+上記の内容で送信しました。確定までしばらくお待ちください。`;
 
             liff.sendMessages([{ type: 'text', text: messageText }]).then(() => { liff.closeWindow(); }).catch((err) => { alert('送信エラーが発生しました。'); });
         }
