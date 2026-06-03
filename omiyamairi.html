@@ -429,7 +429,7 @@ ${studioOptionText}
 ・${momRental}
 ■大人のお支度のご希望：${dressing}
 
-上記の内容で送信しました。確定までしばらくお待ちください。`;
+上記の内容で送信しました。日程調整後、担当者からご連絡いたします。`;
 
             liff.sendMessages([{ type: 'text', text: messageText }]).then(() => { liff.closeWindow(); }).catch((err) => { alert('送信エラーが発生しました。'); });
         }
