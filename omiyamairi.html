@@ -131,8 +131,8 @@
                 <label for="date1">撮影希望日①<span class="required-badge">必須</span></label>
                 <input type="date" id="date1">
                 <div class="time-selector-group">
-                    <label class="time-label"><input type="radio" name="time1" value="午前枠 10:30～"> 午前枠 10:30～</label>
-                    <label class="time-label"><input type="radio" name="time1" value="午後枠 13:30～"> 午後枠 13:30～</label>
+                    <label class="time-label"><input type="radio" name="time1" value="午前枠 10:30～"> 午前枠 10:30</label>
+                    <label class="time-label"><input type="radio" name="time1" value="午後枠 13:30～"> 午後枠 13:30</label>
                     <label class="time-label"><input type="radio" name="time1" value="ご祈祷の時間に合わせたい"> ご祈祷の時間に合わせたい</label>
                     <label class="time-label"><input type="radio" name="time1" value="相談したい"> 相談したい</label>
                 </div>
@@ -143,8 +143,8 @@
                 <label for="date2">撮影希望日②<span class="required-badge">必須</span></label>
                 <input type="date" id="date2">
                 <div class="time-selector-group">
-                    <label class="time-label"><input type="radio" name="time2" value="午前枠 10:30～"> 午前枠 10:30～</label>
-                    <label class="time-label"><input type="radio" name="time2" value="午後枠 13:30～"> 午後枠 13:30～</label>
+                    <label class="time-label"><input type="radio" name="time2" value="午前枠 10:30～"> 午前枠 10:30</label>
+                    <label class="time-label"><input type="radio" name="time2" value="午後枠 13:30～"> 午後枠 13:30</label>
                     <label class="time-label"><input type="radio" name="time2" value="ご祈祷の時間に合わせたい"> ご祈祷の時間に合わせたい</label>
                     <label class="time-label"><input type="radio" name="time2" value="相談したい"> 相談したい</label>
                 </div>
@@ -155,8 +155,8 @@
                 <label for="date3">撮影希望日③<span class="optional-badge">任意</span></label>
                 <input type="date" id="date3">
                 <div class="time-selector-group">
-                    <label class="time-label"><input type="radio" name="time3" value="午前枠 10:30～"> 午前枠 10:30～</label>
-                    <label class="time-label"><input type="radio" name="time3" value="午後枠 13:30～"> 午後枠 13:30～</label>
+                    <label class="time-label"><input type="radio" name="time3" value="午前枠 10:30～"> 午前枠 10:30</label>
+                    <label class="time-label"><input type="radio" name="time3" value="午後枠 13:30～"> 午後枠 13:30</label>
                     <label class="time-label"><input type="radio" name="time3" value="ご祈祷の時間に合わせたい"> ご祈祷の時間に合わせたい</label>
                     <label class="time-label"><input type="radio" name="time3" value="相談したい"> 相談したい</label>
                 </div>
@@ -174,12 +174,12 @@
                     <div style="margin-top: 4px; padding-top: 12px; border-top: 1px dashed #eee; display: flex; flex-direction: column; gap: 10px;">
                         <span style="font-size: 14px; font-weight: 600; color: #222; display: block; margin-bottom: 2px;">オプション<span class="optional-badge">任意</span></span>
                         
-                        <!-- 常時露出化：無料衣装レンタルを利用する -->
+                        <!-- 無料衣装レンタルを利用する -->
                         <div>
                             <label class="choice-label" style="font-weight: normal; margin-bottom: 6px;">
-                                <input type="checkbox" id="optFreeCloth" value="あり" style="width: 20px; height: 20px; margin-right: 12px; accent-color: #7aa692;"> 無料産着レンタル
+                                <input type="checkbox" id="optFreeCloth" value="あり" style="width: 20px; height: 20px; margin-right: 12px; accent-color: #7aa692;"> 無料衣装レンタルを利用する
                             </label>
-                            <!-- テキストのすぐ下に配置した画像と説明文 -->
+                            <!-- 画像と新説明文の配置エリア -->
                             <div class="free-ubugi-area">
                                 <div class="ubugi-img-wrap">
                                     <div class="ubugi-img-box">
@@ -192,7 +192,7 @@
                                     </div>
                                 </div>
                                 <p class="free-ubugi-desc">
-                                    柄は1種類ずつになります。<br>
+                                    柄は1種類ずつになります。帽子と涎掛けもついています。<br>
                                     スタジオのみ使用可。お参りへの持ち出しは+¥5,500。
                                 </p>
                             </div>
@@ -265,7 +265,7 @@
             </div>
 
             <div class="form-group group-separator">
-                <label for="attendees">撮影に参加される方の人数<span class="optional-badge">任意</span></label>
+                <label forest="attendees">撮影に参加される方の人数<span class="optional-badge">任意</span></label>
                 <textarea id="attendees" placeholder="例：大人4人（夫婦、両家祖母）、子供2人（本人、兄）"></textarea>
             </div>
 
@@ -678,8 +678,11 @@ ${attendees}
 ■ご祈祷の時間：${prayTimeText}
 
 ■有料産着レンタル：${rentalUbuzi}${ubuziDetailText}
+
 ■ママ訪問着レンタル：${rentalMom}${momDetailText}
+
 ■お支度のご希望：${dressing}${dressingDetailText}
+
 ■ご質問、ご相談など：
 ${questions}
 
