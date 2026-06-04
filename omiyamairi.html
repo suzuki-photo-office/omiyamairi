@@ -134,14 +134,53 @@
             <div class="form-group group-separator" id="group_plan">
                 <label class="required">希望プラン<span class="required-badge">必須</span></label>
                 <div class="choice-group">
-                    <label class="choice-label"><input type="radio" name="plan" value="お参り同行プラン"> お参り同行プラン</label>
-                    <label class="choice-label"><input type="radio" name="plan" value="スタジオプラン"> スタジオプラン</label>
-                    <label class="choice-label"><input type="radio" name="plan" value="プラン検討中"> プラン検討中</label>
+                    <label class="choice-label"><input type="radio" name="plan" value="お参り同行プラン ¥51,700"> お参り同行プラン ¥51,700</label>
+                    <label class="choice-label"><input type="radio" name="plan" value="スタジオプラン ¥40,700"> スタジオプラン ¥40,700</label>
+                    <label class="choice-label"><input type="radio" name="plan" value="お参り同行+スタジオ2シーン ¥73,700"> お参り同行+スタジオ2シーン ¥73,700</label>
+                    <label class="choice-label"><input type="radio" name="plan" value="検討中"> 検討中</label>
+                    
+                    <!-- オプションチェックボックス群 -->
+                    <div style="margin-top: 4px; padding-top: 12px; border-top: 1px dashed #eee; display: flex; flex-direction: column; gap: 10px;">
+                        <label class="choice-label" style="font-weight: 600;">
+                            <input type="checkbox" id="optFlower" value="あり" onchange="toggleFlowerDetail(this.checked)" style="width: 20px; height: 20px; margin-right: 12px; accent-color: #7aa692;"> スタジオ生花撮影 ¥5,500<span class="optional-badge">任意</span>
+                        </label>
+                        
+                        <label class="choice-label" style="font-weight: 600;">
+                            <input type="checkbox" id="opt753" value="あり" style="width: 20px; height: 20px; margin-right: 12px; accent-color: #7aa692;"> 七五三と同時参り<span class="optional-badge">任意</span>
+                        </label>
+                    </div>
                 </div>
                 <div class="error-message">希望プランを選択してください。</div>
+
+                <!-- スタジオ生花撮影選択時の詳細ボックス -->
+                <div class="conditional-detail-area" id="flowerDetailWrap" style="margin-top: 12px; padding: 14px; background: #fafafa; border-radius: 8px;">
+                    <p style="font-size: 14px; font-weight: 700; color: #222; margin-bottom: 6px;">●スタジオ生花撮影の詳細</p>
+                    <p style="font-size: 12px; color: #666; line-height: 1.4; margin-bottom: 12px;">
+                        お花の品種の指定はできません。<br>お好きなお色味で、市場に出ている旬のお花をご用意いたします。
+                    </p>
+                    <span class="sub-label" style="margin-top: 0; margin-bottom: 8px;">お好きな色味</span>
+                    <div class="choice-group" style="gap: 10px;">
+                        <label class="choice-label" style="font-size: 14px;"><input type="radio" name="flowerColor" value="白" onclick="toggleFlowerOther(false)"> 白</label>
+                        <label class="choice-label" style="font-size: 14px;"><input type="radio" name="flowerColor" value="グリーン" onclick="toggleFlowerOther(false)"> グリーン</label>
+                        <label class="choice-label" style="font-size: 14px; align-items: flex-start;">
+                            <input type="radio" name="flowerColor" value="ブルー" onclick="toggleFlowerOther(false)" style="margin-top: 2px;"> 
+                            <div>ブルー<span style="font-size: 11px; color: #8c8c8c; display: block; margin-top: 1px;">（初夏以外はご用意が難しい場合がございます）</span></div>
+                        </label>
+                        <label class="choice-label" style="font-size: 14px;"><input type="radio" name="flowerColor" value="ピンク" onclick="toggleFlowerOther(false)"> ピンク</label>
+                        <label class="choice-label" style="font-size: 14px;"><input type="radio" name="flowerColor" value="紫" onclick="toggleFlowerOther(false)"> 紫</label>
+                        <label class="choice-label" style="font-size: 14px;"><input type="radio" name="flowerColor" value="オレンジ" onclick="toggleFlowerOther(false)"> オレンジ</label>
+                        <label class="choice-label" style="font-size: 14px;"><input type="radio" name="flowerColor" value="黄色" onclick="toggleFlowerOther(false)"> 黄色</label>
+                        <label class="choice-label" style="font-size: 14px;"><input type="radio" name="flowerColor" value="赤" onclick="toggleFlowerOther(false)"> 赤</label>
+                        <label class="choice-label" style="font-size: 14px;"><input type="radio" name="flowerColor" value="カラフル" onclick="toggleFlowerOther(false)"> カラフル</label>
+                        <label class="choice-label" style="font-size: 14px;"><input type="radio" name="flowerColor" value="その他" onclick="toggleFlowerOther(true)"> その他（記述式）</label>
+                    </div>
+                    <div id="flowerColorOtherWrap" style="display: none; margin-top: 10px;">
+                        <input type="text" id="flowerColorOtherInput" placeholder="例：パステル系、淡い水色など">
+                    </div>
+                </div>
             </div>
 
-            <!-- 【グループ3】赤ちゃん情報（個別フォーム化） -->
+            <!-- 【グループ3】赤ちゃん情報 -->
             <div class="form-group" id="group_babyName">
                 <label for="babyName">赤ちゃんのお名前（ふりがな）<span class="required-badge">必須</span></label>
                 <input type="text" id="babyName" placeholder="例：鈴木 結菜（ゆいな）">
@@ -158,9 +197,9 @@
             </div>
 
             <div class="form-group" id="group_babyBirth">
-                <label for="babyBirth">赤ちゃんの生年月日（または出産予定日）<span class="required-badge">必須</span></label>
+                <label for="babyBirth">赤ちゃんの生年月日<span class="required-badge">必須</span></label>
                 <input type="date" id="babyBirth">
-                <div class="error-message">生年月日または出産予定日を選択してください。</div>
+                <div class="error-message">生年月日を選択してください。</div>
             </div>
 
             <div class="form-group">
@@ -366,7 +405,7 @@
     </div>
 
     <script>
-        const MY_LIFF_ID = "2006407169-5SP3NKYi"; // お宮参り専用のLIFF ID
+        const MY_LIFF_ID = "2006407169-5SP3NKYi"; 
 
         document.addEventListener("DOMContentLoaded", function() {
             try {
@@ -383,6 +422,16 @@
                     .catch((err) => { alert('LINE通信エラー: ' + err.message); });
             } catch (e) { alert('プログラム実行エラー: ' + e.message); }
         });
+
+        // スタジオ生花撮影の表示・非表示切り替え
+        function toggleFlowerDetail(show) {
+            document.getElementById('flowerDetailWrap').style.display = show ? 'block' : 'none';
+        }
+
+        // 生花撮影その他自由記述の表示・非表示切り替え
+        function toggleFlowerOther(show) {
+            document.getElementById('flowerColorOtherWrap').style.display = show ? 'block' : 'none';
+        }
 
         // 産着レンタルの表示・非表示切り替え
         function toggleUbuziDetail(show) {
@@ -428,6 +477,23 @@
             const planRadio = document.querySelector('input[name="plan"]:checked');
             const plan = planRadio ? planRadio.value : '';
             if (!plan) { document.getElementById('group_plan').classList.add('has-error'); hasError = true; }
+
+            // オプション情報取得
+            const optFlowerChecked = document.getElementById('optFlower').checked;
+            const optFlower = optFlowerChecked ? 'あり' : 'なし';
+            
+            let flowerDetailText = '';
+            if (optFlowerChecked) {
+                const fColorRadio = document.querySelector('input[name="flowerColor"]:checked');
+                let fColor = fColorRadio ? fColorRadio.value : '未選択';
+                if (fColor === 'その他') {
+                    const otherVal = document.getElementById('flowerColorOtherInput').value.trim();
+                    fColor = otherVal ? `その他(${otherVal})` : 'その他(未入力)';
+                }
+                flowerDetailText = ` (希望色味: ${fColor})`;
+            }
+
+            const opt753 = document.getElementById('opt753').checked ? 'あり' : 'なし';
 
             // 赤ちゃん基本情報取得
             const babyName = document.getElementById('babyName').value.trim();
@@ -519,10 +585,11 @@
 ■撮影希望日②：${date2}
 ■撮影希望日③：${date3}
 ■希望プラン：${plan}
+■オプション：スタジオ生花撮影:${optFlower}${flowerDetailText} / 七五三と同時参り:${opt753}
 
 ■赤ちゃんのお名前：${babyName}
 ■赤ちゃんの性別：${babySex}
-■赤ちゃんの生年月日/予定日：${babyBirth}
+■赤ちゃんの生年月日：${babyBirth}
 
 ■ご兄弟の情報（名前・性別・年齢）：
 ${siblings}
