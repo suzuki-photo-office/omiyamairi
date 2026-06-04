@@ -36,38 +36,45 @@
         .optional-badge { background-color: #8c8c8c; color: white; font-size: 10px; padding: 2px 6px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
         
         .explain-text { font-size: 13px; color: #555; background: #fdfaf6; padding: 10px 12px; border-radius: 6px; border-left: 3px solid #a89f91; margin-bottom: 12px; line-height: 1.5; }
-        .link-area { margin-top: 8px; font-size: 14px; font-weight: 600; line-height: 1.8; }
+        .explain-text a { color: #7aa692; text-decoration: underline; font-weight: bold; }
+        .link-area { margin-top: 4px; font-size: 14px; font-weight: 600; line-height: 1.8; }
         .link-area a { color: #7aa692; text-decoration: underline; display: block; margin-bottom: 4px; }
         
-        /* 画像ギャラリーのスタイル */
-        .image-gallery { margin-top: 16px; padding-top: 16px; border-top: 1px solid #eee; }
-        .gallery-title { font-size: 13px; font-weight: 600; color: #555; margin-bottom: 10px; }
-        .gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 10px; }
-        .gallery-item { text-align: center; }
-        .gallery-item img { width: 100%; height: auto; border-radius: 8px; border: 1px solid #eee; display: block; margin-bottom: 6px; }
-        .gallery-item span { font-size: 12px; color: #666; font-weight: 500; }
+        .alert-red-text { color: #ff4d4f; font-size: 13px; font-weight: bold; margin: 4px 0 12px 0; line-height: 1.4; }
         
-        .gallery-note { font-size: 11px; color: #666; text-align: center; background: #ffffff; padding: 6px 0 0 0; margin-top: 4px; border: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        
-        input[type="text"], input[type="tel"], input[type="date"], input[type="time"], input[type="number"], textarea { 
+        input[type="text"], input[type="tel"], input[type="date"], input[type="time"], input[type="number"], select, textarea { 
             width: 100%; padding: 14px; border: 1px solid #d9d9d9; border-radius: 8px; font-size: 16px; background: #ffffff; color: #333; transition: all 0.2s; -webkit-appearance: none;
         }
         input#zipcode { width: 45%; }
         input[type="time"] { width: 45%; }
+        select { background: #ffffff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23555555'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E") no-repeat right 14px center; background-size: 20px; padding-right: 40px; }
         
-        textarea { resize: vertical; min-height: 70px; font-family: inherit; }
-        input:focus, textarea:focus { border-color: #a89f91; outline: none; background: #fff; box-shadow: 0 0 0 3px rgba(168, 159, 145, 0.1); }
+        textarea { resize: vertical; min-height: 80px; font-family: inherit; }
+        input:focus, select:focus, textarea:focus { border-color: #a89f91; outline: none; background: #fff; box-shadow: 0 0 0 3px rgba(168, 159, 145, 0.1); }
         input::placeholder, textarea::placeholder { color: #bfbfbf; font-size: 15px; }
         
         .choice-group { display: flex; flex-direction: column; gap: 12px; margin-top: 4px; }
         .choice-label { display: flex; align-items: center; font-weight: normal; font-size: 15px; cursor: pointer; }
         .choice-label input { width: 20px; height: 20px; margin-right: 12px; accent-color: #7aa692; }
         
+        .inline-choice { display: flex; gap: 20px; margin-top: 6px; margin-bottom: 6px; }
+        .inline-label { display: flex; align-items: center; font-size: 14px; font-weight: normal; cursor: pointer; }
+        .inline-label input { width: 18px; height: 18px; margin-right: 8px; accent-color: #a89f91; }
+
         .time-input-wrap { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
         
-        .time-selector-group { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; padding-top: 12px; border-top: 1px dashed #eee; }
-        .time-label { display: flex; align-items: center; font-size: 14px; font-weight: normal; cursor: pointer; color: #555; }
-        .time-label input { width: 18px; height: 18px; margin-right: 8px; accent-color: #a89f91; }
+        /* 条件付き詳細入力欄（共通アニメーション） */
+        .conditional-detail-area { display: none; margin-top: 16px; padding-top: 16px; border-top: 1px dashed #eee; animation: fadeIn 0.3s ease-in-out; }
+        .detail-block-title { font-size: 14px; font-weight: 700; color: #222; margin-bottom: 12px; }
+        .sub-section-title { font-size: 14px; font-weight: 700; color: #7aa692; margin-top: 16px; margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px dashed #7aa692; }
+        .sub-section-title:first-of-type { margin-top: 0; }
+        .detail-field { margin-bottom: 12px; }
+        .detail-field:last-child { margin-bottom: 0; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         .btn-area { margin-top: 24px; padding: 0 16px; }
         button { width: 100%; padding: 16px; background-color: #a89f91; color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(168, 159, 145, 0.1); transition: all 0.2s; }
@@ -110,87 +117,48 @@
             <div class="form-group" id="group_date1">
                 <label for="date1">撮影希望日①<span class="required-badge">必須</span></label>
                 <input type="date" id="date1">
-                <div class="time-selector-group">
-                    <label class="time-label"><input type="radio" name="time1" value="午前枠10:30"> 午前枠10:30</label>
-                    <label class="time-label"><input type="radio" name="time1" value="午後枠13:30"> 午後枠13:30</label>
-                    <label class="time-label"><input type="radio" name="time1" value="ご祈祷の時間に合わせたい"> ご祈祷の時間に合わせたい</label>
-                    <label class="time-label"><input type="radio" name="time1" value="相談したい"> 相談したい</label>
-                </div>
-                <div class="error-message">撮影希望日①の日付と時間帯の両方を選択してください。</div>
+                <div class="error-message">撮影希望日①を選択してください。</div>
             </div>
 
             <div class="form-group" id="group_date2">
                 <label for="date2">撮影希望日②<span class="required-badge">必須</span></label>
                 <input type="date" id="date2">
-                <div class="time-selector-group">
-                    <label class="time-label"><input type="radio" name="time2" value="午前枠10:30"> 午前枠10:30</label>
-                    <label class="time-label"><input type="radio" name="time2" value="午後枠13:30"> 午後枠13:30</label>
-                    <label class="time-label"><input type="radio" name="time2" value="ご祈祷の時間に合わせたい"> ご祈祷の時間に合わせたい</label>
-                    <label class="time-label"><input type="radio" name="time2" value="相談したい"> 相談したい</label>
-                </div>
-                <div class="error-message">撮影希望日②の日付と時間帯の両方を選択してください。</div>
+                <div class="error-message">撮影希望日②を選択してください。</div>
             </div>
 
             <div class="form-group">
                 <label for="date3">撮影希望日③<span class="optional-badge">任意</span></label>
                 <input type="date" id="date3">
-                <div class="time-selector-group">
-                    <label class="time-label"><input type="radio" name="time3" value="午前枠10:30"> 午前枠10:30</label>
-                    <label class="time-label"><input type="radio" name="time3" value="午後枠13:30"> 午後枠13:30</label>
-                    <label class="time-label"><input type="radio" name="time3" value="ご祈祷の時間に合わせたい"> ご祈祷の時間に合わせたい</label>
-                    <label class="time-label"><input type="radio" name="time3" value="相談したい"> 相談したい</label>
-                </div>
             </div>
 
             <div class="form-group group-separator" id="group_plan">
                 <label class="required">希望プラン<span class="required-badge">必須</span></label>
                 <div class="choice-group">
                     <label class="choice-label"><input type="radio" name="plan" value="お参り同行プラン ¥51,700"> お参り同行プラン ¥51,700</label>
-                    <label class="choice-label"><input type="radio" name="plan" value="スタジオプラン ¥40,700"> スタジオプラン ¥40,700</label>
-                    <label class="choice-label"><input type="radio" name="plan" value="お参り同行＋スタジオ2シーンプラン ¥73,700"> お参り同行＋スタジオ2シーンプラン ¥73,700</label>
-                    <label class="choice-label"><input type="radio" name="plan" value="相談したい"> 相談したい</label>
+                    <label class="choice-label"><input type="radio" name="plan" value="スタジオプラン ¥52,800"> スタジオプラン ¥52,800</label>
+                    <label class="choice-label"><input type="radio" name="plan" value="検討中"> 検討中</label>
                 </div>
                 <div class="error-message">希望プランを選択してください。</div>
             </div>
 
-            <!-- 【グループ3】お子様・付き添い情報 -->
+            <!-- 【グループ3】お子様情報 -->
             <div class="form-group" id="group_babyName">
-                <label for="babyName">祈祷されるお子様のお名前<span class="required-badge">必須</span></label>
-                <input type="text" id="babyName" placeholder="例：ひなた">
-                <div class="error-message">お子様のお名前を入力してください。</div>
-            </div>
-
-            <div class="form-group" id="group_birthDate">
-                <label for="birthDate">祈祷されるお子様のお誕生日<span class="required-badge">必須</span></label>
-                <input type="date" id="birthDate">
-                <div class="error-message">お子様のお誕生日を選択してください。</div>
-            </div>
-
-            <div class="form-group" id="group_babyGender">
-                <label>祈祷されるお子様の性別<span class="required-badge">必須</span></label>
-                <div class="choice-group">
-                    <label class="choice-label"><input type="radio" name="babyGender" value="男の子"> 男の子</label>
-                    <label class="choice-label"><input type="radio" name="babyGender" value="女の子"> 女の子</label>
-                </div>
-                <div class="error-message">お子様の性別を選択してください。</div>
+                <label for="babyName">赤ちゃんのお名前、性別、生年月日（または出産予定日）<span class="required-badge">必須</span></label>
+                <textarea id="babyName" placeholder="例：鈴木 結菜（ゆいな）、女の子、2026年4月15日生"></textarea>
+                <div class="error-message">赤ちゃんのエントリー情報をご記入ください。</div>
             </div>
 
             <div class="form-group">
-                <label for="twins">祈祷されるお子様のお名前、お誕生日、性別(双子ちゃん等の場合)<span class="optional-badge">任意</span></label>
-                <textarea id="twins" placeholder="例：双子のもう一人：山田 れん、お誕生日同上、男の子"></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="siblings">付き添いご兄弟のお名前、年齢、性別<span class="optional-badge">任意</span></label>
-                <textarea id="siblings" placeholder="例：兄：そうた（4歳）"></textarea>
+                <label for="siblings">ご兄弟のお名前、性別、年齢<span class="optional-badge">任意</span></label>
+                <textarea id="siblings" placeholder="例：兄：鈴木 陽向（ひなた）、男の子、5歳"></textarea>
             </div>
 
             <div class="form-group group-separator">
-                <label for="attendees">撮影に参加される方の人数と続柄<span class="optional-badge">任意</span></label>
-                <textarea id="attendees" placeholder="例：大人4人（夫婦）、子供1人（上の子）"></textarea>
+                <label for="attendees">撮影に参加される方の人数<span class="optional-badge">任意</span></label>
+                <textarea id="attendees" placeholder="例：大人4人（夫婦、両家祖母）、子供2人（本人、兄）"></textarea>
             </div>
 
-            <!-- 【グループ4】神社・ご祈祷時間 -->
+            <!-- 【グループ4】参拝神社・ご祈祷時間 -->
             <div class="form-group">
                 <label for="shrine">同行撮影の方はお参りされる神社名<span class="optional-badge">任意</span></label>
                 <input type="text" id="shrine" placeholder="例：○○神社">
@@ -211,81 +179,169 @@
                 </div>
             </div>
 
-            <!-- 【グループ5】レンタル・衣装・お支度 -->
-            <div class="form-group">
-                <label>スタジオ撮影オプション<span class="optional-badge">任意</span></label>
-                <div class="choice-group">
-                    <label class="choice-label"><input type="checkbox" name="studioOption" value="生花撮影あり"> 生花撮影あり</label>
-                    <label class="choice-label"><input type="checkbox" name="studioOption" value="無料産着レンタル"> 無料産着レンタル</label>
-                </div>
-
-                <div class="image-gallery">
-                    <p class="gallery-title">【無料レンタル産着】</p>
-                    <div class="gallery-grid">
-                        <div class="gallery-item">
-                            <img src="レンタル産着_男の子.jpg" alt="男の子用産着">
-                            <span>男の子用</span>
-                        </div>
-                        <div class="gallery-item">
-                            <img src="レンタル産着_女の子.jpg" alt="女の子用産着">
-                            <span>女の子用</span>
-                        </div>
-                    </div>
-                    <div class="gallery-note">
-                        柄は一種類ずつになります。帽子と涎掛けもセットでついています。
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group" id="group_rental">
-                <label>有料衣装レンタル<span class="required-badge">必須</span></label>
-                
-                <span class="sub-label" style="margin-top: 0;">産着</span>
-                <div class="choice-group" style="margin-bottom: 16px;">
-                    <label class="choice-label"><input type="radio" name="babyRental" value="産着：レンタルあり"> レンタルあり</label>
-                    <label class="choice-label"><input type="radio" name="babyRental" value="産着：レンタルなし"> レンタルなし</label>
-                    <label class="choice-label"><input type="radio" name="babyRental" value="産着：検討中"> 検討中</label>
-                </div>
-
-                <span class="sub-label">ママ着物</span>
-                <div class="choice-group" style="margin-bottom: 16px;">
-                    <label class="choice-label"><input type="radio" name="momRental" value="ママ着物：レンタルあり"> レンタルあり</label>
-                    <label class="choice-label"><input type="radio" name="momRental" value="ママ着物：レンタルなし"> レンタルなし</label>
-                    <label class="choice-label"><input type="radio" name="momRental" value="ママ着物：検討中"> 検討中</label>
-                </div>
-                <div class="error-message">有料衣装レンタル（産着・ママ着物）の希望を両方選択してください。</div>
-
-                <div class="explain-text" style="margin-top: 16px; margin-bottom: 0; background: #fcfcfc; border-left-color: #7aa692;">
-                    <p style="font-weight: 700; margin-bottom: 2px; color: #222;">●キモノカタログ</p>
+            <!-- 【グループ5】有料衣装レンタル（産着） -->
+            <div class="form-group" id="group_rentalUbuzi">
+                <label>有料衣装レンタル（産着）のご希望<span class="required-badge">必須</span></label>
+                <div class="explain-text">
+                    <strong>●<a href="https://kimono-c.jp/login/" target="_blank">キモノカタログ</a></strong><br>
                     オンラインレンタルサービス。試着不可。<br>
-                    【ID】1234【PW】001でログインしてカタログをご覧いただけます。
-                    <div class="link-area" style="margin-top: 4px; margin-bottom: 12px;">
-                        <a href="https://suzu-photo.com/wp-content/uploads/2025/04/%E4%B8%83%E4%BA%94%E4%B8%89%E3%83%BB%E7%94%A3%E7%9D%80%E3%83%BB%E8%A8%AA%E5%95%8F%E7%9D%80_%E6%96%99%E9%87%91%E8%A1%A8-scaled.jpg" target="_blank">＞＞＞料金表＜＜＜</a>
+                    【ID】1234【PW】001<br>でログインしてカタログをご覧いただけます。<br>
+                    <div class="link-area" style="margin-bottom: 8px;">
+                        <a href="https://suzu-photo.com/wp-content/uploads/2025/04/%E4%B8%83%E4%BA%94%E4%B8%89%E3%83%BB%E7%94%A3%E7%9D%80%E3%83%BB%E8%A8%AA%E5%95%8F%E7%9D%80_%E6%96%99%E9%87%91%E8%A1%A8-scaled.jpg" target="_blank">＞＞衣装レンタル料金表＜＜</a>
                     </div>
-                    <p style="font-weight: 700; margin-bottom: 2px; color: #222;">●レンタル着物『いと』</p>
-                    実店舗有(試着可)。直通電話 080-3789-6903<br>
-                    <span style="font-size: 11px; color: #666;">（※料金はいとさんへ直接お問い合わせください）</span>
+                    <strong>●<a href="https://www.ito-kimono.shop/" target="_blank">レンタル着物『いと』</a></strong><br>
+                    実店舗有（試着可）。<br>
+                    直通電話: <a href="tel:080-3789-6903">080-3789-6903</a><br>
+                    <span style="font-size: 12px; color:#666;">（料金はいとさんへ直接お問い合わせください）</span>
+                </div>
+                <div class="choice-group">
+                    <label class="choice-label"><input type="radio" name="rentalUbuzi" value="オンラインレンタル" onclick="toggleUbuziDetail(true)"> オンラインレンタル</label>
+                    <label class="choice-label"><input type="radio" name="rentalUbuzi" value="いと" onclick="toggleUbuziDetail(false)"> いと</label>
+                    <label class="choice-label"><input type="radio" name="rentalUbuzi" value="レンタルなし" onclick="toggleUbuziDetail(false)"> レンタルなし</label>
+                    <label class="choice-label"><input type="radio" name="rentalUbuzi" value="検討中" onclick="toggleUbuziDetail(false)"> 検討中</label>
+                </div>
+                <div class="error-message">産着レンタルのご希望を選択してください。</div>
+
+                <!-- 産着：「オンラインレンタル」選択時のみ表示 -->
+                <div class="conditional-detail-area" id="ubuziDetailWrap">
+                    <p class="detail-block-title">●ご希望の産着（赤ちゃん）衣装詳細</p>
+                    <p class="alert-red-text">※間違い防止のため、<br>衣装のスクリーンショットをチャットで送信してください。</p>
+                    <div class="detail-field">
+                        <span class="sub-label">衣装の商品番号</span>
+                        <input type="text" id="rentUbuziNo" placeholder="例：KC000AP1111111">
+                    </div>
+                    <div class="detail-field">
+                        <span class="sub-label">安心パック ¥1,100</span>
+                        <div class="inline-choice">
+                            <label class="inline-label"><input type="radio" name="rentUbuziPack" value="あり"> あり</label>
+                            <label class="inline-label"><input type="radio" name="rentUbuziPack" value="なし"> なし</label>
+                        </div>
+                    </div>
                 </div>
             </div>
 
+            <!-- 【グループ6】有料衣装レンタル（ママ着物） -->
+            <div class="form-group" id="group_rentalMom">
+                <label>有料衣装レンタル（ママ訪問着）のご希望<span class="required-badge">必須</span></label>
+                <div class="choice-group">
+                    <label class="choice-label"><input type="radio" name="rentalMom" value="オンラインレンタル" onclick="toggleMomDetail(true)"> オンラインレンタル</label>
+                    <label class="choice-label"><input type="radio" name="rentalMom" value="いと" onclick="toggleMomDetail(false)"> いと</label>
+                    <label class="choice-label"><input type="radio" name="rentalMom" value="レンタルなし" onclick="toggleMomDetail(false)"> レンタルなし</label>
+                    <label class="choice-label"><input type="radio" name="rentalMom" value="検討中" onclick="toggleMomDetail(false)"> 検討中</label>
+                </div>
+                <div class="error-message">ママ訪問着レンタルのご希望を選択してください。</div>
+
+                <!-- ママ着物：「オンラインレンタル」選択時のみ表示 -->
+                <div class="conditional-detail-area" id="momDetailWrap">
+                    <p class="detail-block-title">●ご希望のママ衣装詳細</p>
+                    <p class="alert-red-text">※間違い防止のため、<br>衣装のスクリーンショットをチャットで送信してください。</p>
+                    <div class="detail-field">
+                        <span class="sub-label">衣装の商品番号</span>
+                        <input type="text" id="rentMomNo" placeholder="例：KC000AP1111111">
+                    </div>
+                    <div class="detail-field">
+                        <span class="sub-label">足のサイズ</span>
+                        <select id="rentMomSize">
+                            <option value="未選択">-- 選択してください --</option>
+                            <option value="22.0cm">22.0cm</option>
+                            <option value="22.5cm">22.5cm</option>
+                            <option value="23.0cm">23.0cm</option>
+                            <option value="23.5cm">23.5cm</option>
+                            <option value="24.0cm">24.0cm</option>
+                            <option value="24.5cm">24.5cm</option>
+                            <option value="25.0cm">25.0cm</option>
+                            <option value="25.5cm">25.5cm</option>
+                            <option value="26.0cm">26.0cm</option>
+                        </select>
+                    </div>
+                    <div class="detail-field">
+                        <span class="sub-label">服のサイズ</span>
+                        <select id="rentMomCloth">
+                            <option value="未選択">-- 選択してください --</option>
+                            <option value="7号">7号</option>
+                            <option value="8号">8号</option>
+                            <option value="9号">9号</option>
+                            <option value="10号">10号</option>
+                            <option value="11号">11号</option>
+                            <option value="12号">12号</option>
+                            <option value="13号">13号</option>
+                            <option value="14号">14号</option>
+                            <option value="15号">15号</option>
+                            <option value="16号">16号</option>
+                            <option value="17号">17号</option>
+                        </select>
+                    </div>
+                    <div class="detail-field">
+                        <span class="sub-label">ご年代</span>
+                        <select id="rentMomAge">
+                            <option value="未選択">-- 選択してください --</option>
+                            <option value="20代前半">20代前半</option>
+                            <option value="20代後半">20代後半</option>
+                            <option value="30代前半">30代前半</option>
+                            <option value="30代後半">30代後半</option>
+                            <option value="40代前半">40代前半</option>
+                            <option value="40代後半">40代後半</option>
+                            <option value="50代前半">50代前半</option>
+                            <option value="50代後半">50代後半</option>
+                        </select>
+                    </div>
+                    <div class="detail-field">
+                        <span class="sub-label">安心パック ¥1,100</span>
+                        <div class="inline-choice">
+                            <label class="inline-label"><input type="radio" name="rentMomPack" value="あり"> あり</label>
+                            <label class="inline-label"><input type="radio" name="rentMomPack" value="なし"> なし</label>
+                        </div>
+                    </div>
+                    <div class="detail-field">
+                        <span class="sub-label">帯小物コーディネート</span>
+                        <div class="choice-group">
+                            <label class="choice-label"><input type="radio" name="rentMomCoord" value="可愛い感じ"> 可愛い感じ</label>
+                            <label class="choice-label"><input type="radio" name="rentMomCoord" value="華やかな感じ"> 華やかな感じ</label>
+                            <label class="choice-label"><input type="radio" name="rentMomCoord" value="かっこいい感じ"> かっこいい感じ</label>
+                            <label class="choice-label"><input type="radio" name="rentMomCoord" value="上品な感じ"> 上品な感じ</label>
+                            <label class="choice-label"><input type="radio" name="rentMomCoord" value="お任せ"> お任せ</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 【グループ7】お支度のご希望 -->
             <div class="form-group" id="group_dressing">
-                <label>大人のお支度のご希望<span class="required-badge">必須</span></label>
+                <label>お支度(着付、ヘアセット等)のご希望<span class="required-badge">必須</span></label>
                 <div class="explain-text">
                     ヘアメイクさんのスケジュール確認が必要になりますので、追って希望日の空き状況をお知らせ致します。
-                </div>
-                <div class="choice-group">
-                    <label class="choice-label"><input type="radio" name="dressing" value="あり"> あり</label>
-                    <label class="choice-label"><input type="radio" name="dressing" value="なし"> なし</label>
-                    <label class="choice-label"><input type="radio" name="dressing" value="検討中"> 検討中</label>
-                </div>
-                <div class="error-message">大人のお支度のご希望を選択してください。</div>
-                
-                <div class="explain-text" style="margin-top: 16px; margin-bottom: 4px; border-left-color: #a89f91;">
-                    衣装、お支度の料金表は以下リンクをご確認ください。大変恐縮ですが、交通費以外のお見積りにつきましては料金表をご参照くださいますようお願い申し上げます。
                     <div class="link-area">
                         <a href="https://suzu-photo.com/wp-content/uploads/2026/04/%E6%96%99%E9%87%91%E8%A1%A82026-scaled.jpg" target="_blank">＞＞お支度料金表＜＜</a>
                     </div>
                 </div>
+                <div class="choice-group">
+                    <label class="choice-label"><input type="radio" name="dressing" value="あり" onclick="toggleDressingDetail(true)"> あり</label>
+                    <label class="choice-label"><input type="radio" name="dressing" value="なし" onclick="toggleDressingDetail(false)"> なし</label>
+                    <label class="choice-label"><input type="radio" name="dressing" value="検討中" onclick="toggleDressingDetail(false)"> 検討中</label>
+                </div>
+                <div class="error-message">お支度のご希望を選択してください。</div>
+
+                <!-- 「あり」選択時のみ表示されるお支度詳細入力エリア -->
+                <div class="conditional-detail-area" id="dressingDetailWrap">
+                    <p class="detail-block-title">●ご希望のお支度内容をご記入ください</p>
+                    <div class="detail-field">
+                        <span class="sub-label">ママ</span>
+                        <input type="text" id="dressingMom" placeholder="例：訪問着付け・ヘアセット">
+                    </div>
+                    <div class="detail-field">
+                        <span class="sub-label">パパ</span>
+                        <input type="text" id="dressingDad" placeholder="例：着付けのみ">
+                    </div>
+                    <div class="detail-field">
+                        <span class="sub-label">その他（ご祖母様など）</span>
+                        <input type="text" id="dressingOther" placeholder="例：祖母 訪問着付け">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="questions">ご質問、ご相談など<span class="optional-badge">任意</span></label>
+                <textarea id="questions" placeholder="例：上の子の衣装の持ち込みについて相談したいです。"></textarea>
             </div>
         </div>
 
@@ -295,7 +351,7 @@
     </div>
 
     <script>
-        const MY_LIFF_ID = "2006407169-YsrZha6s"; 
+        const MY_LIFF_ID = "2006407169-5SP3NKYi"; // お宮参り専用のLIFF IDに変更して運用してください
 
         document.addEventListener("DOMContentLoaded", function() {
             try {
@@ -313,6 +369,21 @@
             } catch (e) { alert('プログラム実行エラー: ' + e.message); }
         });
 
+        // 産着レンタルの表示・非表示切り替え
+        function toggleUbuziDetail(show) {
+            document.getElementById('ubuziDetailWrap').style.display = show ? 'block' : 'none';
+        }
+
+        // ママ訪問着レンタルの表示・非表示切り替え
+        function toggleMomDetail(show) {
+            document.getElementById('momDetailWrap').style.display = show ? 'block' : 'none';
+        }
+
+        // お支度詳細の表示・非表示切り替え
+        function toggleDressingDetail(show) {
+            document.getElementById('dressingDetailWrap').style.display = show ? 'block' : 'none';
+        }
+
         function submitForm() {
             const errorGroups = document.querySelectorAll('.form-group');
             errorGroups.forEach(g => g.classList.remove('has-error'));
@@ -329,21 +400,29 @@
             const address = document.getElementById('address').value.trim();
             if (!address) { document.getElementById('group_address').classList.add('has-error'); hasError = true; }
             
+            // 撮影希望日
+            const date1 = document.getElementById('date1').value;
+            if (!date1) { document.getElementById('group_date1').classList.add('has-error'); hasError = true; }
+
+            const date2 = document.getElementById('date2').value;
+            if (!date2) { document.getElementById('group_date2').classList.add('has-error'); hasError = true; }
+
+            const date3 = document.getElementById('date3').value || 'なし';
+            
+            // 希望プラン
+            const planRadio = document.querySelector('input[name="plan"]:checked');
+            const plan = planRadio ? planRadio.value : '';
+            if (!plan) { document.getElementById('group_plan').classList.add('has-error'); hasError = true; }
+
+            // お子様情報
             const babyName = document.getElementById('babyName').value.trim();
             if (!babyName) { document.getElementById('group_babyName').classList.add('has-error'); hasError = true; }
 
-            const birthDate = document.getElementById('birthDate').value;
-            if (!birthDate) { document.getElementById('group_birthDate').classList.add('has-error'); hasError = true; }
-
-            const babyGenderRadio = document.querySelector('input[name="babyGender"]:checked');
-            const babyGender = babyGenderRadio ? babyGenderRadio.value : '';
-            if (!babyGender) { document.getElementById('group_babyGender').classList.add('has-error'); hasError = true; }
-
-            const twins = document.getElementById('twins').value.trim() || 'なし';
             const siblings = document.getElementById('siblings').value.trim() || 'なし';
             const attendees = document.getElementById('attendees').value.trim() || '未記入';
             const shrine = document.getElementById('shrine').value.trim() || '未記入';
-            
+
+            // ご祈祷の時間
             const prayTimeTypeRadio = document.querySelector('input[name="prayTimeType"]:checked');
             let prayTimeText = '未記入';
             if (prayTimeTypeRadio) {
@@ -352,39 +431,53 @@
                     prayTimeText = timeVal ? timeVal : '時間未入力';
                 } else { prayTimeText = prayTimeTypeRadio.value; }
             }
-            
-            const date1 = document.getElementById('date1').value;
-            const time1Radio = document.querySelector('input[name="time1"]:checked');
-            const time1 = time1Radio ? time1Radio.value : '';
-            if (!date1 || !time1) { document.getElementById('group_date1').classList.add('has-error'); hasError = true; }
 
-            const date2 = document.getElementById('date2').value;
-            const time2Radio = document.querySelector('input[name="time2"]:checked');
-            const time2 = time2Radio ? time2Radio.value : '';
-            if (!date2 || !time2) { document.getElementById('group_date2').classList.add('has-error'); hasError = true; }
+            // 有料産着レンタル情報取得
+            const rentalUbuziRadio = document.querySelector('input[name="rentalUbuzi"]:checked');
+            const rentalUbuzi = rentalUbuziRadio ? rentalUbuziRadio.value : '';
+            if (!rentalUbuzi) { document.getElementById('group_rentalUbuzi').classList.add('has-error'); hasError = true; }
 
-            const date3 = document.getElementById('date3').value;
-            const time3Radio = document.querySelector('input[name="time3"]:checked');
-            const time3 = time3Radio ? time3Radio.value : '未選択';
-            
-            const planRadio = document.querySelector('input[name="plan"]:checked');
-            const plan = planRadio ? planRadio.value : '';
-            if (!plan) { document.getElementById('group_plan').classList.add('has-error'); hasError = true; }
+            let ubuziDetailText = '';
+            if (rentalUbuzi === 'オンラインレンタル') {
+                const uNo = document.getElementById('rentUbuziNo').value.trim() || '未記入';
+                const uPackRadio = document.querySelector('input[name="rentUbuziPack"]:checked');
+                const uPack = uPackRadio ? uPackRadio.value : '未選択';
+                ubuziDetailText = `\n  └商品番号:${uNo} / 安心P:${uPack}`;
+            }
 
-            const studioOptionBoxes = document.querySelectorAll('input[name="studioOption"]:checked');
-            const studioOptions = [];
-            studioOptionBoxes.forEach((cb) => { studioOptions.push(cb.value); });
-            const studioOptionText = studioOptions.length > 0 ? studioOptions.map(opt => `・${opt}`).join('\n') : 'なし';
+            // ママ訪問着レンタル情報取得
+            const rentalMomRadio = document.querySelector('input[name="rentalMom"]:checked');
+            const rentalMom = rentalMomRadio ? rentalMomRadio.value : '';
+            if (!rentalMom) { document.getElementById('group_rentalMom').classList.add('has-error'); hasError = true; }
 
-            const babyRentalRadio = document.querySelector('input[name="babyRental"]:checked');
-            const babyRental = babyRentalRadio ? babyRentalRadio.value : '';
-            const momRentalRadio = document.querySelector('input[name="momRental"]:checked');
-            const momRental = momRentalRadio ? momRentalRadio.value : '';
-            if (!babyRental || !momRental) { document.getElementById('group_rental').classList.add('has-error'); hasError = true; }
+            let momDetailText = '';
+            if (rentalMom === 'オンラインレンタル') {
+                const mNo = document.getElementById('rentMomNo').value.trim() || '未記入';
+                const mSize = document.getElementById('rentMomSize').value;
+                const mCloth = document.getElementById('rentMomCloth').value;
+                const mAge = document.getElementById('rentMomAge').value;
+                const mPackRadio = document.querySelector('input[name="rentMomPack"]:checked');
+                const mPack = mPackRadio ? mPackRadio.value : '未選択';
+                const mCoordRadio = document.querySelector('input[name="rentMomCoord"]:checked');
+                const mCoord = mCoordRadio ? mCoordRadio.value : '未選択';
 
+                momDetailText = `\n  └商品番号:${mNo} / 足:${mSize} / 服:${mCloth} / 年代:${mAge} / 安心P:${mPack} / コーデ:${mCoord}\n※衣装のスクリーンショットは別途チャット送信`;
+            }
+
+            // お支度情報取得
             const dressingRadio = document.querySelector('input[name="dressing"]:checked');
             const dressing = dressingRadio ? dressingRadio.value : '';
             if (!dressing) { document.getElementById('group_dressing').classList.add('has-error'); hasError = true; }
+
+            let dressingDetailText = '';
+            if (dressing === 'あり') {
+                const dm = document.getElementById('dressingMom').value.trim() || '未記入';
+                const dd = document.getElementById('dressingDad').value.trim() || '未記入';
+                const doOther = document.getElementById('dressingOther').value.trim() || '未記入';
+                dressingDetailText = `\n【お支度内訳】\n  ・ママ：${dm}\n  ・パパ：${dd}\n  ・その他：${doOther}`;
+            }
+
+            const questions = document.getElementById('questions').value.trim() || 'なし';
 
             if (hasError) {
                 alert('必須項目(*)に入力漏れがあります。赤く表示された箇所を確認してください。');
@@ -393,43 +486,35 @@
                 return;
             }
 
-            const dateTimeText1 = `${date1} (${time1})`;
-            const dateTimeText2 = `${date2} (${time2})`;
-            const dateTimeText3 = date3 ? `${date3} (${time3})` : 'なし';
-
-            // ご指定いただいたまとまり通りの並び順 ＆ 見やすい空行を追加
+            // チャットへ飛ぶメッセージ
             const messageText = `【予約申込】お宮参り
 ■お名前：${name}
 ■お電話番号：${phone}
 ■郵便番号：${zipcode}
 ■ご住所：${address}
 
-■撮影希望日①：${dateTimeText1}
-■撮影希望日②：${dateTimeText2}
-■撮影希望日③：${dateTimeText3}
+■撮影希望日①：${date1}
+■撮影希望日②：${date2}
+■撮影希望日③：${date3}
 ■希望プラン：${plan}
 
-■祈祷されるお子様名：${babyName}
-■お子様のお誕生日：${birthDate}
-■お子様の性別：${babyGender}
-■双子ちゃん等の場合：
-${twins}
-■付き添いご兄弟のお名前、年齢、性別：
+■赤ちゃん情報（名前・性別・生年月日/予定日）：
+${babyName}
+■ご兄弟の情報（名前・性別・年齢）：
 ${siblings}
-■撮影に参加される方の人数と続柄：
+■撮影に参加される方の人数：
 ${attendees}
 
 ■お参りされる神社名：${shrine}
 ■ご祈祷の時間：${prayTimeText}
 
-■スタジオ撮影オプション：
-${studioOptionText}
-■有料衣装レンタル：
-・${babyRental}
-・${momRental}
-■大人のお支度のご希望：${dressing}
+■有料産着レンタル：${rentalUbuzi}${ubuziDetailText}
+■ママ訪問着レンタル：${rentalMom}${momDetailText}
+■お支度のご希望：${dressing}${dressingDetailText}
+■ご質問、ご相談など：
+${questions}
 
-上記の内容で送信しました。日程調整後、担当者からご連絡いたします。`;
+上記の内容で送信しました。確定までしばらくお待ちください。`;
 
             liff.sendMessages([{ type: 'text', text: messageText }]).then(() => { liff.closeWindow(); }).catch((err) => { alert('送信エラーが発生しました。'); });
         }
