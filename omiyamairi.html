@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>お宮参りフォトご予約</title>
+    <!-- LINE LIFF SDK -->
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -66,6 +67,14 @@
         .time-selector-group { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; padding-top: 12px; border-top: 1px dashed #eee; }
         .time-label { display: flex; align-items: center; font-size: 14px; font-weight: normal; cursor: pointer; color: #555; }
         .time-label input { width: 18px; height: 18px; margin-right: 8px; accent-color: #a89f91; }
+
+        /* 無料産着画像のレイアウト設定（常時表示用） */
+        .free-ubugi-area { margin: 8px 0 8px 32px; }
+        .ubugi-img-wrap { display: flex; gap: 10px; margin-bottom: 6px; max-width: 320px; }
+        .ubugi-img-box { flex: 1; text-align: center; }
+        .ubugi-img-box img { width: 100%; height: auto; border-radius: 6px; border: 1px solid #ddd; display: block; margin-bottom: 4px; }
+        .ubugi-img-box span { display: block; font-size: 12px; color: #666; font-weight: 600; }
+        .free-ubugi-desc { font-size: 12px; color: #666; line-height: 1.4; margin-top: 4px; }
         
         /* 条件付き詳細入力欄（共通アニメーション） */
         .conditional-detail-area { display: none; margin-top: 16px; padding-top: 16px; border-top: 1px dashed #eee; animation: fadeIn 0.3s ease-in-out; }
@@ -95,6 +104,7 @@
         </div>
         
         <div class="form-content">
+            <!-- 【グループ1】お客様基本情報 -->
             <div class="form-group" id="group_name">
                 <label for="name">お名前<span class="required-badge">必須</span></label>
                 <input type="text" id="name" placeholder="例：鈴木 花子">
@@ -116,6 +126,7 @@
                 <div class="error-message">住所を入力してください。</div>
             </div>
 
+            <!-- 【グループ2】撮影希望日・プラン -->
             <div class="form-group" id="group_date1">
                 <label for="date1">撮影希望日①<span class="required-badge">必須</span></label>
                 <input type="date" id="date1">
@@ -159,14 +170,35 @@
                     <label class="choice-label"><input type="radio" name="plan" value="お参り同行+スタジオ2シーン ¥73,700"> お参り同行+スタジオ2シーン ¥73,700</label>
                     <label class="choice-label"><input type="radio" name="plan" value="検討中"> 検討中</label>
                     
+                    <!-- オプション枠 -->
                     <div style="margin-top: 4px; padding-top: 12px; border-top: 1px dashed #eee; display: flex; flex-direction: column; gap: 10px;">
                         <span style="font-size: 14px; font-weight: 600; color: #222; display: block; margin-bottom: 2px;">オプション<span class="optional-badge">任意</span></span>
                         
-                        <label class="choice-label" style="font-weight: normal;">
-                            <input type="checkbox" id="optFreeCloth" value="あり" onchange="toggleFreeClothDetail(this.checked)" style="width: 20px; height: 20px; margin-right: 12px; accent-color: #7aa692;"> 無料衣装レンタル（産着）を利用する
-                        </label>
+                        <!-- 常時露出化：無料衣装レンタルを利用する -->
+                        <div>
+                            <label class="choice-label" style="font-weight: normal; margin-bottom: 6px;">
+                                <input type="checkbox" id="optFreeCloth" value="あり" style="width: 20px; height: 20px; margin-right: 12px; accent-color: #7aa692;"> 無料衣装レンタルを利用する
+                            </label>
+                            <!-- テキストのすぐ下に配置した画像と説明文 -->
+                            <div class="free-ubugi-area">
+                                <div class="ubugi-img-wrap">
+                                    <div class="ubugi-img-box">
+                                        <img src="レンタル産着_女の子.jpg" alt="レンタル産着 女の子">
+                                        <span>女の子用</span>
+                                    </div>
+                                    <div class="ubugi-img-box">
+                                        <img src="レンタル産着_男の子.jpg" alt="レンタル産着 男の子">
+                                        <span>男の子用</span>
+                                    </div>
+                                </div>
+                                <p class="free-ubugi-desc">
+                                    柄は1種類ずつになります。<br>
+                                    スタジオのみ使用可。お参りへの持ち出しは+¥5,500。
+                                </p>
+                            </div>
+                        </div>
 
-                        <label class="choice-label" style="font-weight: normal;">
+                        <label class="choice-label" style="font-weight: normal; margin-top: 6px;">
                             <input type="checkbox" id="optFlower" value="あり" onchange="toggleFlowerDetail(this.checked)" style="width: 20px; height: 20px; margin-right: 12px; accent-color: #7aa692;"> スタジオ生花撮影 ¥5,500
                         </label>
                         
@@ -177,21 +209,7 @@
                 </div>
                 <div class="error-message">希望プランを選択してください。</div>
 
-                <div class="conditional-detail-area" id="freeClothDetailWrap" style="margin-top: 12px; padding: 14px; background: #fafafa; border-radius: 8px;">
-                    <p style="font-size: 14px; font-weight: 700; color: #222; margin-bottom: 6px;">●無料レンタル産着（お祝い着）の詳細</p>
-                    <div class="explain-text" style="margin-bottom: 8px;">
-                        当スタジオでお参り時・撮影時にご利用いただける無料の産着カタログです。<br>
-                        間違い防止のため、ご希望の衣装のスクリーンショットを公式LINE宛てにお送りください。
-                    </div>
-                    <div class="link-area" style="margin-bottom: 8px;">
-                        <a href="https://suzu-photo.com/ubugi/" target="_blank">＞＞無料レンタル産着カタログはこちら＜＜</a>
-                    </div>
-                    <div class="detail-field">
-                        <span class="sub-label">ご希望の衣装番号・色（決まっていれば）</span>
-                        <input type="text" id="freeClothNo" placeholder="例：男の子用 02番（黒）、女の子用 白地など">
-                    </div>
-                </div>
-
+                <!-- スタジオ生花撮影選択時の詳細ボックス -->
                 <div class="conditional-detail-area" id="flowerDetailWrap" style="margin-top: 12px; padding: 14px; background: #fafafa; border-radius: 8px;">
                     <p style="font-size: 14px; font-weight: 700; color: #222; margin-bottom: 6px;">●スタジオ生花撮影の詳細</p>
                     <p style="font-size: 12px; color: #666; line-height: 1.4; margin-bottom: 12px;">
@@ -219,6 +237,7 @@
                 </div>
             </div>
 
+            <!-- 【グループ3】赤ちゃん情報 -->
             <div class="form-group" id="group_babyName">
                 <label for="babyName">赤ちゃんのお名前（ふりがな）<span class="required-badge">必須</span></label>
                 <input type="text" id="babyName" placeholder="例：鈴木 結菜（ゆいな）">
@@ -250,6 +269,7 @@
                 <textarea id="attendees" placeholder="例：大人4人（夫婦、両家祖母）、子供2人（本人、兄）"></textarea>
             </div>
 
+            <!-- 【グループ4】参拝神社・ご祈祷時間 -->
             <div class="form-group">
                 <label for="shrine">同行撮影の方はお参りされる神社名<span class="optional-badge">任意</span></label>
                 <input type="text" id="shrine" placeholder="例：○○神社">
@@ -270,6 +290,7 @@
                 </div>
             </div>
 
+            <!-- 【グループ5】有料衣装レンタル（産着） -->
             <div class="form-group" id="group_rentalUbuzi">
                 <label>有料衣装レンタル（産着）のご希望<span class="required-badge">必須</span></label>
                 <div class="explain-text">
@@ -292,6 +313,7 @@
                 </div>
                 <div class="error-message">産着レンタルのご希望を選択してください。</div>
 
+                <!-- 産着：「オンラインレンタル」選択時のみ表示 -->
                 <div class="conditional-detail-area" id="ubuziDetailWrap">
                     <p class="detail-block-title">●ご希望の産着（赤ちゃん）衣装詳細</p>
                     <p class="alert-red-text">※間違い防止のため、<br>衣装のスクリーンショットをチャットで送信してください。</p>
@@ -309,6 +331,7 @@
                 </div>
             </div>
 
+            <!-- 【グループ6】有料衣装レンタル（ママ着物） -->
             <div class="form-group" id="group_rentalMom">
                 <label>有料衣装レンタル（ママ訪問着）のご希望<span class="required-badge">必須</span></label>
                 <div class="choice-group">
@@ -319,6 +342,7 @@
                 </div>
                 <div class="error-message">ママ訪問着レンタルのご希望を選択してください。</div>
 
+                <!-- ママ着物：「オンラインレンタル」選択時のみ表示 -->
                 <div class="conditional-detail-area" id="momDetailWrap">
                     <p class="detail-block-title">●ご希望のママ衣装詳細</p>
                     <p class="alert-red-text">※間違い防止のため、<br>衣装のスクリーンショットをチャットで送信してください。</p>
@@ -392,6 +416,7 @@
                 </div>
             </div>
 
+            <!-- 【グループ7】お支度のご希望 -->
             <div class="form-group" id="group_dressing">
                 <label>お支度(着付、ヘアセット等)のご希望<span class="required-badge">必須</span></label>
                 <div class="explain-text">
@@ -407,6 +432,7 @@
                 </div>
                 <div class="error-message">お支度のご希望を選択してください。</div>
 
+                <!-- 「あり」選択時のみ表示されるお支度詳細入力エリア -->
                 <div class="conditional-detail-area" id="dressingDetailWrap">
                     <p class="detail-block-title">●ご希望のお支度内容をご記入ください</p>
                     <div class="detail-field">
@@ -453,11 +479,6 @@
                     .catch((err) => { alert('LINE通信エラー: ' + err.message); });
             } catch (e) { alert('プログラム実行エラー: ' + e.message); }
         });
-
-        // 無料レンタル産着の表示・非表示切り替え
-        function toggleFreeClothDetail(show) {
-            document.getElementById('freeClothDetailWrap').style.display = show ? 'block' : 'none';
-        }
 
         // スタジオ生花撮影の表示・非表示切り替え
         function toggleFlowerDetail(show) {
@@ -526,11 +547,7 @@
 
             // オプション情報・詳細テキスト取得
             const optFreeClothChecked = document.getElementById('optFreeCloth').checked;
-            let freeClothText = optFreeClothChecked ? 'あり' : 'なし';
-            if (optFreeClothChecked) {
-                const fClothNo = document.getElementById('freeClothNo').value.trim();
-                freeClothText += fClothNo ? ` (希望:${fClothNo})` : ' (衣装未定)';
-            }
+            const freeClothText = optFreeClothChecked ? 'あり' : 'なし';
 
             const optFlowerChecked = document.getElementById('optFlower').checked;
             const optFlower = optFlowerChecked ? 'あり' : 'なし';
