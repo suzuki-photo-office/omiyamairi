@@ -134,18 +134,33 @@
             <div class="form-group group-separator" id="group_plan">
                 <label class="required">希望プラン<span class="required-badge">必須</span></label>
                 <div class="choice-group">
-                    <label class="choice-label"><input type="radio" name="plan" value="お参り同行プラン ¥51,700"> お参り同行プラン ¥51,700</label>
-                    <label class="choice-label"><input type="radio" name="plan" value="スタジオプラン ¥52,800"> スタジオプラン ¥52,800</label>
-                    <label class="choice-label"><input type="radio" name="plan" value="検討中"> 検討中</label>
+                    <label class="choice-label"><input type="radio" name="plan" value="お参り同行プラン"> お参り同行プラン</label>
+                    <label class="choice-label"><input type="radio" name="plan" value="スタジオプラン"> スタジオプラン</label>
+                    <label class="choice-label"><input type="radio" name="plan" value="プラン検討中"> プラン検討中</label>
                 </div>
                 <div class="error-message">希望プランを選択してください。</div>
             </div>
 
-            <!-- 【グループ3】お子様情報 -->
+            <!-- 【グループ3】赤ちゃん情報（個別フォーム化） -->
             <div class="form-group" id="group_babyName">
-                <label for="babyName">赤ちゃんのお名前、性別、生年月日（または出産予定日）<span class="required-badge">必須</span></label>
-                <textarea id="babyName" placeholder="例：鈴木 結菜（ゆいな）、女の子、2026年4月15日生"></textarea>
-                <div class="error-message">赤ちゃんのエントリー情報をご記入ください。</div>
+                <label for="babyName">赤ちゃんのお名前（ふりがな）<span class="required-badge">必須</span></label>
+                <input type="text" id="babyName" placeholder="例：鈴木 結菜（ゆいな）">
+                <div class="error-message">赤ちゃんのお名前を入力してください。</div>
+            </div>
+
+            <div class="form-group" id="group_babySex">
+                <label>赤ちゃんの性別<span class="required-badge">必須</span></label>
+                <div class="inline-choice">
+                    <label class="inline-label"><input type="radio" name="babySex" value="男の子"> 男の子</label>
+                    <label class="inline-label"><input type="radio" name="babySex" value="女の子"> 女の子</label>
+                </div>
+                <div class="error-message">赤ちゃんの性別を選択してください。</div>
+            </div>
+
+            <div class="form-group" id="group_babyBirth">
+                <label for="babyBirth">赤ちゃんの生年月日（または出産予定日）<span class="required-badge">必須</span></label>
+                <input type="date" id="babyBirth">
+                <div class="error-message">生年月日または出産予定日を選択してください。</div>
             </div>
 
             <div class="form-group">
@@ -351,7 +366,7 @@
     </div>
 
     <script>
-        const MY_LIFF_ID = "2006407169-YsrZha6s"; // お宮参り専用のLIFF IDに変更して運用してください
+        const MY_LIFF_ID = "2006407169-5SP3NKYi"; // お宮参り専用のLIFF ID
 
         document.addEventListener("DOMContentLoaded", function() {
             try {
@@ -414,9 +429,16 @@
             const plan = planRadio ? planRadio.value : '';
             if (!plan) { document.getElementById('group_plan').classList.add('has-error'); hasError = true; }
 
-            // お子様情報
+            // 赤ちゃん基本情報取得
             const babyName = document.getElementById('babyName').value.trim();
             if (!babyName) { document.getElementById('group_babyName').classList.add('has-error'); hasError = true; }
+
+            const babySexRadio = document.querySelector('input[name="babySex"]:checked');
+            const babySex = babySexRadio ? babySexRadio.value : '';
+            if (!babySex) { document.getElementById('group_babySex').classList.add('has-error'); hasError = true; }
+
+            const babyBirth = document.getElementById('babyBirth').value;
+            if (!babyBirth) { document.getElementById('group_babyBirth').classList.add('has-error'); hasError = true; }
 
             const siblings = document.getElementById('siblings').value.trim() || 'なし';
             const attendees = document.getElementById('attendees').value.trim() || '未記入';
@@ -498,8 +520,10 @@
 ■撮影希望日③：${date3}
 ■希望プラン：${plan}
 
-■赤ちゃん情報（名前・性別・生年月日/予定日）：
-${babyName}
+■赤ちゃんのお名前：${babyName}
+■赤ちゃんの性別：${babySex}
+■赤ちゃんの生年月日/予定日：${babyBirth}
+
 ■ご兄弟の情報（名前・性別・年齢）：
 ${siblings}
 ■撮影に参加される方の人数：
