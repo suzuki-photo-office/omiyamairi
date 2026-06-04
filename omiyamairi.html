@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>お宮参りフォトご予約</title>
-    <!-- LINE LIFF SDK -->
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -96,7 +95,6 @@
         </div>
         
         <div class="form-content">
-            <!-- 【グループ1】お客様基本情報 -->
             <div class="form-group" id="group_name">
                 <label for="name">お名前<span class="required-badge">必須</span></label>
                 <input type="text" id="name" placeholder="例：鈴木 花子">
@@ -118,13 +116,12 @@
                 <div class="error-message">住所を入力してください。</div>
             </div>
 
-            <!-- 【グループ2】撮影希望日・プラン -->
             <div class="form-group" id="group_date1">
                 <label for="date1">撮影希望日①<span class="required-badge">必須</span></label>
                 <input type="date" id="date1">
                 <div class="time-selector-group">
-                    <label class="time-label"><input type="radio" name="time1" value="午前枠 10:30～"> 午前枠 10:30</label>
-                    <label class="time-label"><input type="radio" name="time1" value="午後枠 13:30～"> 午後枠 13:30</label>
+                    <label class="time-label"><input type="radio" name="time1" value="午前枠 10:30～"> 午前枠 10:30～</label>
+                    <label class="time-label"><input type="radio" name="time1" value="午後枠 13:30～"> 午後枠 13:30～</label>
                     <label class="time-label"><input type="radio" name="time1" value="ご祈祷の時間に合わせたい"> ご祈祷の時間に合わせたい</label>
                     <label class="time-label"><input type="radio" name="time1" value="相談したい"> 相談したい</label>
                 </div>
@@ -135,8 +132,8 @@
                 <label for="date2">撮影希望日②<span class="required-badge">必須</span></label>
                 <input type="date" id="date2">
                 <div class="time-selector-group">
-                    <label class="time-label"><input type="radio" name="time2" value="午前枠 10:30～"> 午前枠 10:30</label>
-                    <label class="time-label"><input type="radio" name="time2" value="午後枠 13:30～"> 午後枠 13:30</label>
+                    <label class="time-label"><input type="radio" name="time2" value="午前枠 10:30～"> 午前枠 10:30～</label>
+                    <label class="time-label"><input type="radio" name="time2" value="午後枠 13:30～"> 午後枠 13:30～</label>
                     <label class="time-label"><input type="radio" name="time2" value="ご祈祷の時間に合わせたい"> ご祈祷の時間に合わせたい</label>
                     <label class="time-label"><input type="radio" name="time2" value="相談したい"> 相談したい</label>
                 </div>
@@ -147,8 +144,8 @@
                 <label for="date3">撮影希望日③<span class="optional-badge">任意</span></label>
                 <input type="date" id="date3">
                 <div class="time-selector-group">
-                    <label class="time-label"><input type="radio" name="time3" value="午前枠 10:30～"> 午前枠 10:30</label>
-                    <label class="time-label"><input type="radio" name="time3" value="午後枠 13:30～"> 午後枠 13:30</label>
+                    <label class="time-label"><input type="radio" name="time3" value="午前枠 10:30～"> 午前枠 10:30～</label>
+                    <label class="time-label"><input type="radio" name="time3" value="午後枠 13:30～"> 午後枠 13:30～</label>
                     <label class="time-label"><input type="radio" name="time3" value="ご祈祷の時間に合わせたい"> ご祈祷の時間に合わせたい</label>
                     <label class="time-label"><input type="radio" name="time3" value="相談したい"> 相談したい</label>
                 </div>
@@ -162,10 +159,13 @@
                     <label class="choice-label"><input type="radio" name="plan" value="お参り同行+スタジオ2シーン ¥73,700"> お参り同行+スタジオ2シーン ¥73,700</label>
                     <label class="choice-label"><input type="radio" name="plan" value="検討中"> 検討中</label>
                     
-                    <!-- オプション枠 -->
                     <div style="margin-top: 4px; padding-top: 12px; border-top: 1px dashed #eee; display: flex; flex-direction: column; gap: 10px;">
                         <span style="font-size: 14px; font-weight: 600; color: #222; display: block; margin-bottom: 2px;">オプション<span class="optional-badge">任意</span></span>
                         
+                        <label class="choice-label" style="font-weight: normal;">
+                            <input type="checkbox" id="optFreeCloth" value="あり" onchange="toggleFreeClothDetail(this.checked)" style="width: 20px; height: 20px; margin-right: 12px; accent-color: #7aa692;"> 無料衣装レンタル（産着）を利用する
+                        </label>
+
                         <label class="choice-label" style="font-weight: normal;">
                             <input type="checkbox" id="optFlower" value="あり" onchange="toggleFlowerDetail(this.checked)" style="width: 20px; height: 20px; margin-right: 12px; accent-color: #7aa692;"> スタジオ生花撮影 ¥5,500
                         </label>
@@ -177,7 +177,21 @@
                 </div>
                 <div class="error-message">希望プランを選択してください。</div>
 
-                <!-- スタジオ生花撮影選択時の詳細ボックス（複数選択チェックボックス方式） -->
+                <div class="conditional-detail-area" id="freeClothDetailWrap" style="margin-top: 12px; padding: 14px; background: #fafafa; border-radius: 8px;">
+                    <p style="font-size: 14px; font-weight: 700; color: #222; margin-bottom: 6px;">●無料レンタル産着（お祝い着）の詳細</p>
+                    <div class="explain-text" style="margin-bottom: 8px;">
+                        当スタジオでお参り時・撮影時にご利用いただける無料の産着カタログです。<br>
+                        間違い防止のため、ご希望の衣装のスクリーンショットを公式LINE宛てにお送りください。
+                    </div>
+                    <div class="link-area" style="margin-bottom: 8px;">
+                        <a href="https://suzu-photo.com/ubugi/" target="_blank">＞＞無料レンタル産着カタログはこちら＜＜</a>
+                    </div>
+                    <div class="detail-field">
+                        <span class="sub-label">ご希望の衣装番号・色（決まっていれば）</span>
+                        <input type="text" id="freeClothNo" placeholder="例：男の子用 02番（黒）、女の子用 白地など">
+                    </div>
+                </div>
+
                 <div class="conditional-detail-area" id="flowerDetailWrap" style="margin-top: 12px; padding: 14px; background: #fafafa; border-radius: 8px;">
                     <p style="font-size: 14px; font-weight: 700; color: #222; margin-bottom: 6px;">●スタジオ生花撮影の詳細</p>
                     <p style="font-size: 12px; color: #666; line-height: 1.4; margin-bottom: 12px;">
@@ -205,7 +219,6 @@
                 </div>
             </div>
 
-            <!-- 【グループ3】赤ちゃん情報 -->
             <div class="form-group" id="group_babyName">
                 <label for="babyName">赤ちゃんのお名前（ふりがな）<span class="required-badge">必須</span></label>
                 <input type="text" id="babyName" placeholder="例：鈴木 結菜（ゆいな）">
@@ -237,7 +250,6 @@
                 <textarea id="attendees" placeholder="例：大人4人（夫婦、両家祖母）、子供2人（本人、兄）"></textarea>
             </div>
 
-            <!-- 【グループ4】参拝神社・ご祈祷時間 -->
             <div class="form-group">
                 <label for="shrine">同行撮影の方はお参りされる神社名<span class="optional-badge">任意</span></label>
                 <input type="text" id="shrine" placeholder="例：○○神社">
@@ -258,7 +270,6 @@
                 </div>
             </div>
 
-            <!-- 【グループ5】有料衣装レンタル（産着） -->
             <div class="form-group" id="group_rentalUbuzi">
                 <label>有料衣装レンタル（産着）のご希望<span class="required-badge">必須</span></label>
                 <div class="explain-text">
@@ -281,7 +292,6 @@
                 </div>
                 <div class="error-message">産着レンタルのご希望を選択してください。</div>
 
-                <!-- 産着：「オンラインレンタル」選択時のみ表示 -->
                 <div class="conditional-detail-area" id="ubuziDetailWrap">
                     <p class="detail-block-title">●ご希望の産着（赤ちゃん）衣装詳細</p>
                     <p class="alert-red-text">※間違い防止のため、<br>衣装のスクリーンショットをチャットで送信してください。</p>
@@ -299,7 +309,6 @@
                 </div>
             </div>
 
-            <!-- 【グループ6】有料衣装レンタル（ママ着物） -->
             <div class="form-group" id="group_rentalMom">
                 <label>有料衣装レンタル（ママ訪問着）のご希望<span class="required-badge">必須</span></label>
                 <div class="choice-group">
@@ -310,7 +319,6 @@
                 </div>
                 <div class="error-message">ママ訪問着レンタルのご希望を選択してください。</div>
 
-                <!-- ママ着物：「オンラインレンタル」選択時のみ表示 -->
                 <div class="conditional-detail-area" id="momDetailWrap">
                     <p class="detail-block-title">●ご希望のママ衣装詳細</p>
                     <p class="alert-red-text">※間違い防止のため、<br>衣装のスクリーンショットをチャットで送信してください。</p>
@@ -384,7 +392,6 @@
                 </div>
             </div>
 
-            <!-- 【グループ7】お支度のご希望 -->
             <div class="form-group" id="group_dressing">
                 <label>お支度(着付、ヘアセット等)のご希望<span class="required-badge">必須</span></label>
                 <div class="explain-text">
@@ -400,7 +407,6 @@
                 </div>
                 <div class="error-message">お支度のご希望を選択してください。</div>
 
-                <!-- 「あり」選択時のみ表示されるお支度詳細入力エリア -->
                 <div class="conditional-detail-area" id="dressingDetailWrap">
                     <p class="detail-block-title">●ご希望のお支度内容をご記入ください</p>
                     <div class="detail-field">
@@ -447,6 +453,11 @@
                     .catch((err) => { alert('LINE通信エラー: ' + err.message); });
             } catch (e) { alert('プログラム実行エラー: ' + e.message); }
         });
+
+        // 無料レンタル産着の表示・非表示切り替え
+        function toggleFreeClothDetail(show) {
+            document.getElementById('freeClothDetailWrap').style.display = show ? 'block' : 'none';
+        }
 
         // スタジオ生花撮影の表示・非表示切り替え
         function toggleFlowerDetail(show) {
@@ -513,7 +524,14 @@
             const plan = planRadio ? planRadio.value : '';
             if (!plan) { document.getElementById('group_plan').classList.add('has-error'); hasError = true; }
 
-            // オプション情報取得
+            // オプション情報・詳細テキスト取得
+            const optFreeClothChecked = document.getElementById('optFreeCloth').checked;
+            let freeClothText = optFreeClothChecked ? 'あり' : 'なし';
+            if (optFreeClothChecked) {
+                const fClothNo = document.getElementById('freeClothNo').value.trim();
+                freeClothText += fClothNo ? ` (希望:${fClothNo})` : ' (衣装未定)';
+            }
+
             const optFlowerChecked = document.getElementById('optFlower').checked;
             const optFlower = optFlowerChecked ? 'あり' : 'なし';
             
@@ -628,7 +646,7 @@
 ■撮影希望日②：${dateTimeText2}
 ■撮影希望日③：${dateTimeText3}
 ■希望プラン：${plan}
-■オプション：スタジオ生花撮影:${optFlower}${flowerDetailText} / 七五三と同時参り:${opt753}
+■オプション：無料衣装レンタル:${freeClothText} / スタジオ生花撮影:${optFlower}${flowerDetailText} / 七五三と同時参り:${opt753}
 
 ■赤ちゃんのお名前：${babyName}
 ■赤ちゃんの性別：${babySex}
